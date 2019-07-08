@@ -22,6 +22,7 @@ public class Listen {
 
     @Id
     @Column(name="listenid")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     public int getListenId() {
         return listenId;
     }
