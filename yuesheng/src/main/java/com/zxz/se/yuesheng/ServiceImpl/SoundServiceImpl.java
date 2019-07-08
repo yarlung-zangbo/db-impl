@@ -21,7 +21,7 @@ public class SoundServiceImpl implements SoundService {
     public Sound findSound(String name) {
         return soundDao.findByName(name);
     }
-
+/*
     @Override
     public void initSound() throws IOException {
         String url="D:/gitRepo/se/db-impl/yuesheng/src/main/resources/static/sound/";
@@ -36,5 +36,13 @@ public class SoundServiceImpl implements SoundService {
             sound.setContent(contents);
             soundDao.insertSound(sound);
         }
+    }
+*/
+    @Override
+    public void saveSound(String name, byte[] content) {
+        Sound sound=new Sound();
+        sound.setContent(content);
+        sound.setName(name);
+        soundDao.insertSound(sound);
     }
 }
