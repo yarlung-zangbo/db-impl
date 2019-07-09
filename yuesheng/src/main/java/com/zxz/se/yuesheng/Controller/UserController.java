@@ -63,6 +63,33 @@ public class UserController {
             return "{\"status\": \"fail\", \"values\": \"empty file!\"}";
         }
     }
+
+
+    /**
+     *
+     * @param file
+     * @return
+     */
+    @RequestMapping("/upload")
+    @ResponseBody
+    public Object upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        if (!file.isEmpty()) {
+            try {
+                byte [] content=file.getBytes();
+                String con=new String(content);
+                return "OK: \n"+con;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return "fail";
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "fail";
+            }
+        } else {
+            return "{\"status\": \"fail\", \"values\": \"empty file!\"}";
+        }
+    }
+
     /* Test */
 
 
