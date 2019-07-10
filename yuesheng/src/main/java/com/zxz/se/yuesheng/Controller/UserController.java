@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@CrossOrigin(allowCredentials = "true")
 public class UserController {
 
     @Autowired
@@ -73,6 +74,8 @@ public class UserController {
     @RequestMapping("/upload")
     @ResponseBody
     public Object upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+
+        System.out.println("upload file");
         if (!file.isEmpty()) {
             try {
                 byte [] content=file.getBytes();
