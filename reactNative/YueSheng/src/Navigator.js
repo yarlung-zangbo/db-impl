@@ -161,7 +161,6 @@ const LogRegStack=createStackNavigator(
 
 const AppNavigator=createStackNavigator(
     {
-
         LogReg:{
             screen:LogRegStack,
         },

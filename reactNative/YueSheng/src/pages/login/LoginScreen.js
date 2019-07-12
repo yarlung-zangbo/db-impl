@@ -7,31 +7,113 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, KeyboardAvoidingView, TouchableOpacity, View, ImageBackground, TextInput} from 'react-native';
+import {StyleSheet, Text, KeyboardAvoidingView, Alert,TouchableOpacity, View, ImageBackground, TextInput} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {themeColor, image, width, height} from '../variable/Commen'
+import {themeColor, image, width, server} from '../variable/Commen'
 export default class LoginScreen extends Component<Props> {
+    constructor(props){
+        super(props);
+        this.state=({
+            username:'',
+            password:'',
+            message: ' ',
+            isLogin: 0,
+            user: '',
+        })
+    }
+
+    login(){
+        let uri=server+"login";
+        this.setState({
+            message:"wait..."
+        })
+        fetch(uri, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'username=' + this.state.username + '&password=' + this.state.password
+            }
+        ).then((res)=>res.json()
+        ).then((resJson)=>{
+            console.log(resJson);
+            if(resJson.status=='ok'){
+                this.setState({
+                    message:" "
+                })
+                this.props.navigation.navigate("Home");
+            }else{
+                this.setState({
+                    message: resJson.values
+                });
+            }
+        }).catch((error)=>{
+            this.setState({
+                message:"link error..."
+            })
+        })
+    }
+
+    simpleLogin(){
+        let uri=server+"isLogin";
+        this.setState({
+            message:"wait..."
+        })
+        fetch(uri).then((res)=>res.json()
+        ).then((resJson)=>{
+            console.log(resJson);
+            if(resJson.status=='ok'){
+                this.setState({
+                    message:" "
+                })
+                this.props.navigation.navigate("Home");
+            }else{
+                this.setState({
+                    message: "please login"
+                });
+            }
+        }).catch((error)=>{
+            this.setState({
+                message:"link error..."
+            })
+        })
+    }
+
     render() {
         return (
             <ImageBackground source={require("YueSheng/src/image/b.jpg")} style={{width: '100%', height: '100%'}}>
                 <View  style={styles.container}>
                     <KeyboardAvoidingView style={styles.avoid}>
-                        <View >
-                            <FontAwesome name={"user-circle"}
-                                         style={{color: '#000', fontSize:60}}/>
+                        <View style={{alignItems:'center'}}>
+                            <TouchableOpacity onPress={()=>{this.simpleLogin()}}>
+                                <FontAwesome name={"user-circle"}
+                                             style={{color: '#000', fontSize:60}}/>
+                            </TouchableOpacity>
+                            <Text style={{color: themeColor}}>{this.state.message}</Text>
                         </View>
                         <View style={styles.loginView}>
                             <View >
                                 <TextInput style={styles.input}
                                            placeholder={"Username"}
-                                           placeholderTextColor={"#888"}/>
+                                           placeholderTextColor={"#888"}
+                                           selectionColor={themeColor}
+                                           onChangeText={(username)=>{
+                                               this.setState({username: username, message: this.state.user})
+                                           }}/>
                             </View>
                             <View>
                                 <TextInput style={styles.input}
                                            placeholder={"Password"}
-                                           placeholderTextColor={"#888"}/>
+                                           placeholderTextColor={"#888"}
+                                           selectionColor={themeColor}
+                                           secureTextEntry={true}
+                                           onChangeText={(password)=>{
+                                               this.setState({password:password, message: this.state.user})
+                                           }}/>
                             </View>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={()=>{
+                                this.login();
+                            }}>
                                 <View style={styles.login}>
                                     <Text style={{color:"#fff", fontSize:15}}> 登陆 </Text>
                                 </View>
