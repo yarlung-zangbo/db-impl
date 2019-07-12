@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Basic;
 import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -23,6 +25,7 @@ public class UserController {
     private SoundService soundService;
 
     /* Test */
+    @CrossOrigin
     @GetMapping(value="/getAllUser")
     public List<User> getAllUser(){
         return userService.getAllUser();
@@ -78,9 +81,12 @@ public class UserController {
         System.out.println("upload file");
         if (!file.isEmpty()) {
             try {
-                byte [] content=file.getBytes();
-                String con=new String(content);
-                return "OK: \n"+con;
+                String ret="name: "+file.getOriginalFilename();
+                ret+="\ntype: "+file.getContentType();
+                ret+="\nsize: "+file.getSize();
+                System.out.println(ret);
+                System.out.println(new String(file.getBytes(), "utf-8"));
+                return "OK: \n"+ret;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 return "fail";

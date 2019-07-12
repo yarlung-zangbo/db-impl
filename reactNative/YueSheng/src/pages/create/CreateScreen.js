@@ -32,7 +32,7 @@ export default class CreateScreen extends Component<Props> {
                 name: res.name
             };
             formData.append("file", file);
-            fetch("http://192.168.137.1:8086/yuesheng/upload", {
+            fetch("http://192.168.43.124:8086/yuesheng/upload", {
                 method:'POST',
                 headers:{
                     'Content-Type':'multipart/form-data',
