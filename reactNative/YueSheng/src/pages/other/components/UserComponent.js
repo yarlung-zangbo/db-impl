@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {DrawerActions} from "react-navigation";
-import {server, themeColor, user, userMessage} from '../../variable/Commen'
+import {loginServer, themeColor, user, userMessage} from '../../variable/Commen'
 import {BoxShadow} from "react-native-shadow";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -27,7 +27,7 @@ export default class UserComponent extends Component<Props> {
     }
 
     componentDidMount(): void {
-        fetch(server+"userMessage",{
+        fetch(loginServer+"userMessage",{
             method:"GET",
             credentials: 'include'
         }).then((res)=>res.json()

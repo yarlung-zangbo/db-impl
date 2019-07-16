@@ -21,7 +21,7 @@ export default class HomeScreen extends Component<Props> {
                     onPress={()=>this.props.navigation.dispatch(DrawerActions.openDrawer())}>
                     <UserComponent />
                 </TouchableOpacity>
-                <HomeService />
+                <HomeService navigation={this.props.navigation}/>
             </View>
         );
     }

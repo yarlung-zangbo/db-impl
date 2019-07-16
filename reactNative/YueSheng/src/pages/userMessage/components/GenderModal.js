@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {server, themeColor, width} from "../../variable/Commen";
+import {loginServer, themeColor, width} from "../../variable/Commen";
 import Entypo from 'react-native-vector-icons/Entypo';
 
 export default class GenderModal extends Component {
@@ -12,7 +12,7 @@ export default class GenderModal extends Component {
     }
 
     modifyGender(value){
-        let uri=server+"modifyGender";
+        let uri=loginServer+"modifyGender";
         fetch(uri, {
             method: 'POST',
             credentials: 'include',

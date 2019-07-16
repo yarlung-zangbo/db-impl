@@ -16,11 +16,17 @@ export default class HomeService extends Component<Props> {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={styles.iconView}>
+                <TouchableOpacity style={styles.iconView}
+                onPress={()=>{
+                    this.props.navigation.navigate("MyBook");
+                }}>
                     <Fontisto style={styles.icon} name={"music-note"} />
                     <Text style={styles.iconTitle}>我的有声书</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconView}>
+                <TouchableOpacity style={styles.iconView}
+                                  onPress={()=>{
+                                      this.props.navigation.navigate("Favorite");
+                                  }}>
                     <AntDesign style={styles.icon} name={"hearto"} />
                     <Text style={styles.iconTitle}>我的收藏</Text>
                 </TouchableOpacity>

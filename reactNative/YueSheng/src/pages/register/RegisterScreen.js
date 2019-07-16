@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Alert, Text, KeyboardAvoidingView, TouchableOpacity, View, ImageBackground, TextInput} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {themeColor, image, width, server} from '../variable/Commen'
+import {themeColor, image, width, loginServer} from '../variable/Commen'
 export default class LoginScreen extends Component<Props> {
 
     constructor(props) {
@@ -24,7 +24,7 @@ export default class LoginScreen extends Component<Props> {
     }
 
     register(){
-        let url=server+"register";
+        let url=loginServer+"register";
         let body="username="+this.state.username;
         body+="&email="+this.state.email;
         body+="&password="+this.state.password;

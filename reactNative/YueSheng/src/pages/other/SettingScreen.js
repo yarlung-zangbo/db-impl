@@ -13,12 +13,12 @@ import {
 } from 'react-navigation';
 import UserComponent from './components/UserComponent'
 import Entypo from 'react-native-vector-icons/Entypo';
-import {themeColor, server} from "../variable/Commen"
+import {themeColor, loginServer} from "../variable/Commen"
 
 export default class SettingScreen extends Component<Props> {
 
     logout(){
-        let uri=server+"logout";
+        let uri=loginServer+"logout";
         fetch(uri,{
             method:"POST",
             credentials: 'include',
