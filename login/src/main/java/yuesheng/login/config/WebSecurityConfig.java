@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests() // 授权配置
                 .antMatchers("/authentication/require","/register",
-                        "/loginError", "/sendEmail", "/activate", "/isLogin"
+                        "/loginError", "/activate", "/confirmModifyEmail"
                 ).permitAll() // 登录跳转 URL 无需认证
                 .anyRequest()  // 所有请求
                 .authenticated() // 都需要认证

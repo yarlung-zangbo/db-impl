@@ -11,7 +11,7 @@ import {Platform, View, Text, TouchableOpacity} from 'react-native';
 import CreateScreen from './pages/create/CreateScreen'
 import HomeScreen from './pages/home/HomeScreen'
 import RecommendScreen from './pages/recommend/RecommendScreen'
-import OtherScreen from './pages/other/OtherScreen'
+import SettingScreen from './pages/other/SettingScreen'
 import BottomTab from './pages/other/BottomTab'
 import LoginScreen from './pages/login/LoginScreen'
 import RegisterScreen from './pages/register/RegisterScreen'
@@ -22,7 +22,8 @@ import {
     createBottomTabNavigator
 } from 'react-navigation';
 import {themeColor, width} from "./pages/variable/Commen";
-import Entypo from 'react-native-vector-icons/Entypo';
+import UserMessageScreen from "./pages/userMessage/UserMessageScreen";
+import ModifyPasswordScreen from "./pages/userMessage/ModifyPasswordScreen";
 
 
 const HomeStack=createStackNavigator(
@@ -80,7 +81,8 @@ const TopTabNavigator=createMaterialTopTabNavigator(
         tabBarOptions:{
             style:{
                 backgroundColor:'#f34b59',
-                height:50,
+                paddingTop:14,
+                height:60,
             },
             labelStyle:{
                 fontSize:15,
@@ -105,17 +107,31 @@ const BottomTabNavigator=createBottomTabNavigator(
     }
 );
 
+const userStack=createStackNavigator(
+    {
+        UserMessage:{
+            screen:UserMessageScreen
+        },
+        ModifyPassword:{
+            screen:ModifyPasswordScreen
+        }
+    },{
+        headerMode:'none',
+    });
 
 const DrawerNavigator=createDrawerNavigator(
     {
         BottomTab:{
             screen: BottomTabNavigator,
         } ,
+        userStack:{
+            screen:userStack,
+        }
     },
     {
         initialRouteName: 'BottomTab',
         drawerWidth: 285,
-        contentComponent:OtherScreen,
+        contentComponent:SettingScreen,
     }
 )
 
@@ -167,6 +183,7 @@ const AppNavigator=createStackNavigator(
         Drawer:{
             screen:DrawerNavigator,
         },
+
     },
     {
         headerMode:'none',

@@ -29,6 +29,7 @@ export default class LoginScreen extends Component<Props> {
         })
         fetch(uri, {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded'},
@@ -59,12 +60,19 @@ export default class LoginScreen extends Component<Props> {
         this.setState({
             message:"wait..."
         })
-        fetch(uri).then((res)=>res.json()
+        fetch(uri, {
+            method: "GET",
+            credentials: 'include'
+        }).then((res)=>res.json()
         ).then((resJson)=>{
             console.log(resJson);
             if(resJson.status=='ok'){
                 this.setState({
                     message:" "
+                });
+                fetch(server+"userMessage").then((res)=>res.json()
+                ).then((resJson)=>{
+                    console.log(resJson);
                 })
                 this.props.navigation.navigate("Home");
             }else{
