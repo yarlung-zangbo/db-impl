@@ -13,7 +13,6 @@ import {
 } from 'react-navigation';
 import UserComponent from './components/UserComponent'
 import HomeService from './components/HomeService'
-
 export default class HomeScreen extends Component<Props> {
     render() {
         return (

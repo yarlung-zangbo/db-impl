@@ -16,9 +16,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private MailService mailService;
-
     @GetMapping("/authentication/require")
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Object requireAuthentication(){
@@ -33,7 +30,8 @@ public class UserController {
     @RequestMapping(value="/userMessage")
     public Object userMessage(HttpServletRequest request){
         String username=request.getRemoteUser();
-        return userService.getUserMessage(username);
+        System.out.println(username);
+        return PackTool.pack("ok", userService.getUserMessage(username));
     }
 
     @GetMapping(value="/isLogin")
@@ -55,4 +53,38 @@ public class UserController {
         return userService.activate(username);
     }
 
+    @PostMapping("/modifyName")
+    public Object modifyName(HttpServletRequest request){
+        String username=request.getRemoteUser();
+        String name=request.getParameter("name");
+        return userService.modifyName(username, name);
+    }
+
+    @PostMapping("/modifyGender")
+    public Object modifyGender(HttpServletRequest request){
+        String username=request.getRemoteUser();
+        int gender=Integer.valueOf(request.getParameter("gender"));
+        return userService.modifyGender(username, gender);
+    }
+
+    @PostMapping("/modifyPassword")
+    public Object modifyPassword(HttpServletRequest request){
+        String username=request.getRemoteUser();
+        String oldPassword=request.getParameter("oldPassword");
+        String newPassword=request.getParameter("newPassword");
+        String confirmPassword=request.getParameter("confirmPassword");
+        return userService.modifyPassword(username, oldPassword, newPassword, confirmPassword);
+    }
+
+    @PostMapping("/modifyEmail")
+    public Object modifyEmail(HttpServletRequest request){
+        String username=request.getRemoteUser();
+        String email=request.getParameter("email");
+        return userService.modifyEmail(username, email);
+    }
+
+    @RequestMapping("/confirmModifyEmail")
+    public Object confirmModify(String username){
+        return userService.confirmModifyEmail(username);
+    }
 }

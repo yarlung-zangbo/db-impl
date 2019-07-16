@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="user", schema="yuesheng", catalog="")
 @JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler",
-        "password", "disabled"})
+        "password", "disabled", "modifyemail"})
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -17,6 +17,7 @@ import javax.persistence.*;
 public class User {
     private String username;
     private String email;
+    private String modifyemail;
     private String password;
     private int gender;
     private String name;
@@ -42,6 +43,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getModifyemail() {
+        return modifyemail;
+    }
+
+    public void setModifyemail(String modifyemail) {
+        this.modifyemail = modifyemail;
     }
 
     @Basic
