@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  accessibilityIgnoresInvertColors={true}
+  style={
+    Object {
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../src/image/b.jpg",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "height": "100%",
+          "width": "100%",
+        },
+        undefined,
+      ]
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(255, 255, 255, 0.4)",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      onLayout={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 4,
+          "justifyContent": "space-around",
+        }
+      }
+    >
+      <View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": undefined,
+                  "fontSize": 12,
+                },
+                Object {
+                  "color": "#000",
+                  "fontSize": 50,
+                },
+                Object {
+                  "fontFamily": "FontAwesome",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                Object {},
+              ]
+            }
+          >
+            
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "rgb(234,75, 89)",
+              }
+            }
+          >
+             
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "paddingTop": 20,
+            }
+          }
+        >
+          <View>
+            <TextInput
+              allowFontScaling={true}
+              onChangeText={[Function]}
+              placeholder="Username"
+              placeholderTextColor="#888"
+              rejectResponderTermination={true}
+              selectionColor="rgb(234,75, 89)"
+              style={
+                Object {
+                  "backgroundColor": "rgba(0, 0, 0, 0.6)",
+                  "borderRadius": 6,
+                  "color": "#fff",
+                  "height": 40,
+                  "marginBottom": 20,
+                  "paddingLeft": 10,
+                  "paddingRight": 10,
+                  "width": 525,
+                }
+              }
+              underlineColorAndroid="transparent"
+            />
+          </View>
+          <View>
+            <TextInput
+              allowFontScaling={true}
+              onChangeText={[Function]}
+              placeholder="Email"
+              placeholderTextColor="#888"
+              rejectResponderTermination={true}
+              selectionColor="rgb(234,75, 89)"
+              style={
+                Object {
+                  "backgroundColor": "rgba(0, 0, 0, 0.6)",
+                  "borderRadius": 6,
+                  "color": "#fff",
+                  "height": 40,
+                  "marginBottom": 20,
+                  "paddingLeft": 10,
+                  "paddingRight": 10,
+                  "width": 525,
+                }
+              }
+              underlineColorAndroid="transparent"
+            />
+          </View>
+          <View>
+            <TextInput
+              allowFontScaling={true}
+              onChangeText={[Function]}
+              placeholder="Password"
+              placeholderTextColor="#888"
+              rejectResponderTermination={true}
+              secureTextEntry={true}
+              selectionColor="rgb(234,75, 89)"
+              style={
+                Object {
+                  "backgroundColor": "rgba(0, 0, 0, 0.6)",
+                  "borderRadius": 6,
+                  "color": "#fff",
+                  "height": 40,
+                  "marginBottom": 20,
+                  "paddingLeft": 10,
+                  "paddingRight": 10,
+                  "width": 525,
+                }
+              }
+              underlineColorAndroid="transparent"
+            />
+          </View>
+          <View>
+            <TextInput
+              allowFontScaling={true}
+              onChangeText={[Function]}
+              placeholder="Confirm Password"
+              placeholderTextColor="#888"
+              rejectResponderTermination={true}
+              secureTextEntry={true}
+              selectionColor="rgb(234,75, 89)"
+              style={
+                Object {
+                  "backgroundColor": "rgba(0, 0, 0, 0.6)",
+                  "borderRadius": 6,
+                  "color": "#fff",
+                  "height": 40,
+                  "marginBottom": 20,
+                  "paddingLeft": 10,
+                  "paddingRight": 10,
+                  "width": 525,
+                }
+              }
+              underlineColorAndroid="transparent"
+            />
+          </View>
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "rgba(243,75,89, 0.9)",
+                  "borderRadius": 6,
+                  "height": 40,
+                  "justifyContent": "center",
+                  "opacity": 0.95,
+                  "width": 525,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 15,
+                  }
+                }
+              >
+                 注册 
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
