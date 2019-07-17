@@ -25,10 +25,7 @@ export default class FavoriteScreen extends Component<Props> {
                         </Text>
                     </View>
                     <TouchableOpacity >
-                        <AntDesign name={"delete"} style={{padding:10, color:themeColor}}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity >
-                        <Entypo name={"share"} style={{padding:10, color:themeColor}}/>
+                        <AntDesign name={"heart"} style={{padding:10, color:themeColor}}/>
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>
