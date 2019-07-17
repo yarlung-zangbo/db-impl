@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native';
-import {themeColor, height, width, server} from "../variable/Commen";
+import {themeColor, height, width, loginServer} from "../variable/Commen";
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -25,7 +25,7 @@ export default class UserMessageScreen extends Component<Props> {
     }
 
     modifyPassword(){
-        let uri=server+"modifyPassword";
+        let uri=loginServer+"modifyPassword";
         fetch(uri, {
             method: 'POST',
             credentials: 'include',

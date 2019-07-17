@@ -24,8 +24,10 @@ import {
 import {themeColor, width} from "./pages/variable/Commen";
 import UserMessageScreen from "./pages/userMessage/UserMessageScreen";
 import ModifyPasswordScreen from "./pages/userMessage/ModifyPasswordScreen";
+import FavoriteScreen from "./pages/favorite/FavoriteScreen";
+import MyBookScreen from "./pages/myBook/MyBookScreen";
 
-
+/*
 const HomeStack=createStackNavigator(
     {
         Home: HomeScreen,
@@ -52,23 +54,24 @@ const CreateStack=createStackNavigator(
         headerMode:'none'
     }
 )
+*/
 
 const TopTabNavigator=createMaterialTopTabNavigator(
     {
         Home: {
-            screen:HomeStack,
+            screen:HomeScreen,
             navigationOptions:{
                 title:'我的',
             }
         },
         Recommend: {
-            screen:RecommendStack,
+            screen:RecommendScreen,
             navigationOptions:{
                 title:'推荐'
             }
         },
         Create: {
-            screen:CreateStack,
+            screen:CreateScreen,
             navigationOptions:{
                 title:'制作'
             }
@@ -96,10 +99,21 @@ const TopTabNavigator=createMaterialTopTabNavigator(
     }
 );
 
+const AppStack=createStackNavigator(
+    {
+        TopTab: TopTabNavigator,
+        MyBook:MyBookScreen,
+        Favorite:FavoriteScreen,
+    },
+    {
+        headerMode:'none'
+    }
+)
+
 const BottomTabNavigator=createBottomTabNavigator(
     {
-        TopTab:{
-            screen:TopTabNavigator,
+        AppStack:{
+            screen:AppStack,
         }
     },
     {

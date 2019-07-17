@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, KeyboardAvoidingView, Alert,TouchableOpacity, View, ImageBackground, TextInput} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {themeColor, image, width, server} from '../variable/Commen'
+import {themeColor, image, width, loginServer} from '../variable/Commen'
 export default class LoginScreen extends Component<Props> {
     constructor(props){
         super(props);
@@ -23,7 +23,7 @@ export default class LoginScreen extends Component<Props> {
     }
 
     login(){
-        let uri=server+"login";
+        let uri=loginServer+"login";
         this.setState({
             message:"wait..."
         })
@@ -56,7 +56,7 @@ export default class LoginScreen extends Component<Props> {
     }
 
     simpleLogin(){
-        let uri=server+"isLogin";
+        let uri=loginServer+"isLogin";
         this.setState({
             message:"wait..."
         })
@@ -70,7 +70,7 @@ export default class LoginScreen extends Component<Props> {
                 this.setState({
                     message:" "
                 });
-                fetch(server+"userMessage").then((res)=>res.json()
+                fetch(loginServer+"userMessage").then((res)=>res.json()
                 ).then((resJson)=>{
                     console.log(resJson);
                 })

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {TextInput, Modal,TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {server, themeColor, width} from "../../variable/Commen";
+import {loginServer, themeColor, width} from "../../variable/Commen";
 import Entypo from 'react-native-vector-icons/Entypo';
 
 export default class NameModal extends Component {
@@ -17,7 +17,7 @@ export default class NameModal extends Component {
     }
 
     modifyName(){
-        let uri=server+"modifyName";
+        let uri=loginServer+"modifyName";
         fetch(uri, {
             method: 'POST',
             credentials: 'include',
