@@ -1,14 +1,16 @@
 package yuesheng.login.Entity;
-import com.fasterxml.jackson.annotation.*;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="user", schema="yuesheng", catalog="")
-@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler",
-        "password", "disabled", "modifyemail"})
+@Table(name = "user", schema = "yuesheng", catalog = "")
+@JsonIgnoreProperties(value = {"handler", "hibernateLazyInitializer", "fieldHandler",
+        "password", "disabled", "modifyemail" })
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -25,8 +27,8 @@ public class User {
     private String registertime;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="username", length=64)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "username", length = 64)
     public String getUsername() {
         return username;
     }
@@ -36,7 +38,7 @@ public class User {
     }
 
     @Basic
-    @Column(name="email", length=64)
+    @Column(name = "email", length = 64)
     public String getEmail() {
         return email;
     }
@@ -54,7 +56,7 @@ public class User {
     }
 
     @Basic
-    @Column(name="password", length=64)
+    @Column(name = "password", length = 64)
     public String getPassword() {
         return password;
     }
@@ -64,7 +66,7 @@ public class User {
     }
 
     @Basic
-    @Column(name="gender")
+    @Column(name = "gender")
 
     public int getGender() {
         return gender;
@@ -75,7 +77,7 @@ public class User {
     }
 
     @Basic
-    @Column(name="name", length=64)
+    @Column(name = "name", length = 64)
     public String getName() {
         return name;
     }
@@ -85,7 +87,7 @@ public class User {
     }
 
     @Basic
-    @Column(name="disabled")
+    @Column(name = "disabled")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public String getDisabled() {
         return disabled;
@@ -96,7 +98,7 @@ public class User {
     }
 
     @Basic
-    @Column(name="registertime")
+    @Column(name = "registertime")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public String getRegistertime() {
         return registertime;

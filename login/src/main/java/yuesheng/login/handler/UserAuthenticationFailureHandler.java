@@ -25,7 +25,7 @@ public class UserAuthenticationFailureHandler implements AuthenticationFailureHa
                                         AuthenticationException exception) throws IOException {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write( "{\"status\": \"fail\", "+"\"value\": \""+exception.getMessage()+"\"}");
-        redirectStrategy.sendRedirect(request, response, "/loginError?username="+request.getParameter("username"));
+        response.getWriter().write("{\"status\": \"fail\", " + "\"value\": \"" + exception.getMessage() + "\"}");
+        redirectStrategy.sendRedirect(request, response, "/loginError?username=" + request.getParameter("username"));
     }
 }

@@ -6,8 +6,6 @@ import yuesheng.login.Dao.UserDao;
 import yuesheng.login.Entity.User;
 import yuesheng.login.Repository.UserRepository;
 
-import java.util.List;
-
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -20,7 +18,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findByUsername(String username)  {
+    public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 

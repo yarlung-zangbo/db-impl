@@ -2,6 +2,7 @@ package yuesheng.login.ServiceImpl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -33,13 +34,13 @@ public class MailService {
         this.content = content;
     }
 
-    public void sendMail(String emailAddress, String username){
-        try{
+    public void sendMail(String emailAddress, String username) {
+        try {
             Properties props = new Properties();
             props.setProperty("mail.transport.protocol", this.protocol);
             props.setProperty("mail.smtp.host", this.emailHost);
             props.setProperty("mail.smtp.auth", "true");
-            props.setProperty("mail.smtp.starttls.enable","true");
+            props.setProperty("mail.smtp.starttls.enable", "true");
 
             Session session = Session.getInstance(props);
             session.setDebug(true);
@@ -48,7 +49,7 @@ public class MailService {
             transport.connect(this.email, this.password);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-        }catch(Exception err){
+        } catch (Exception err) {
             err.printStackTrace();
         }
     }

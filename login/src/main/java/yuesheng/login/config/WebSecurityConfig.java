@@ -1,6 +1,5 @@
-
-
 package yuesheng.login.config;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(authenticationFailureHandler) // 处理登录失败
                 .and()
                 .authorizeRequests() // 授权配置
-                .antMatchers("/authentication/require","/register",
+                .antMatchers("/authentication/require", "/register",
                         "/loginError", "/activate", "/confirmModifyEmail"
                 ).permitAll() // 登录跳转 URL 无需认证
                 .anyRequest()  // 所有请求
