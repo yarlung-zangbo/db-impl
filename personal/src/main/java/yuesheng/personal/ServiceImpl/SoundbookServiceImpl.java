@@ -1,0 +1,45 @@
+package yuesheng.personal.ServiceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import yuesheng.personal.Dao.SoundbookDao;
+import yuesheng.personal.Entity.Soundbook;
+import yuesheng.personal.Service.SoundbookService;
+import yuesheng.personal.tool.PackTool;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Service
+public class SoundbookServiceImpl implements SoundbookService {
+
+    @Autowired
+    private SoundbookDao soundbookDao;
+
+    @Override
+    @Transactional
+    public Object modifyName(String username, int bookid, String name) {
+        Soundbook book=soundbookDao.findByBookid(bookid);
+        if(book==null)
+            return PackTool.pack("fail", "have no this book");
+        if(book.getCreater().getUsername().equals(username)){
+            book.setName(name);
+            soundbookDao.save(book);
+            return PackTool.pack("ok", name);
+        }
+        return PackTool.pack("fail", "this book isnot yours");
+    }
+
+    @Override
+    @Transactional
+    public Object deleteBook(String username, int bookid) {
+        Soundbook book=soundbookDao.findByBookid(bookid);
+        if(book==null)
+            return PackTool.pack("fail", "have no this book");
+        if(book.getCreater().getUsername().equals(username)){
+            soundbookDao.deleteBook(bookid);
+            return PackTool.pack("ok", bookid);
+        }
+        return PackTool.pack("fail", "this book isnot yours");
+    }
+}

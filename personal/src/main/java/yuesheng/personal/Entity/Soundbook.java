@@ -11,23 +11,23 @@ import javax.persistence.*;
 @JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler"})
 
 public class Soundbook {
-    private int bookId;
+    private int bookid;
     private String name;
     private User creater;
     private int mark;
-    private String realease;
+    private String releasetime;
     private String disabled;
     private String createTime;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="bookid")
-    public int getBookId() {
-        return bookId;
+    public int getBookid() {
+        return bookid;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setBookid(int bookid) {
+        this.bookid = bookid;
     }
 
     @Basic
@@ -42,7 +42,7 @@ public class Soundbook {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="username")
-    @JsonIgnoreProperties(value={"selfBooks", "favorite"})
+    @JsonIgnoreProperties(value={"selfBooks", "favorite", "listenRecord"})
     public User getCreater() {
         return creater;
     }
@@ -62,14 +62,14 @@ public class Soundbook {
     }
 
     @Basic
-    @Column(name="release")
+    @Column(name="releasetime")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public String getRealease() {
-        return realease;
+    public String getReleasetime() {
+        return releasetime;
     }
 
-    public void setRealease(String realease) {
-        this.realease = realease;
+    public void setReleasetime(String releasetime) {
+        this.releasetime = releasetime;
     }
 
     @Basic

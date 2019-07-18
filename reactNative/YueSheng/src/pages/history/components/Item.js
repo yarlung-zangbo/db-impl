@@ -18,14 +18,14 @@ export default class Item extends Component<Props> {
                 <View style={styles.item}>
                     <View style={{flex:1}}>
                         <Text style={{fontSize:16, color: "#000"}}>
-                            {this.props.book.name}
+                            {this.props.listen.soundbook.name}
                         </Text>
                         <Text>
-                            {this.props.book.creater.name}
+                            {this.props.listen.soundbook.creater.name}
                         </Text>
                     </View>
-                    <TouchableOpacity onPress={()=>{this.props.unFavorite(this.props.book.bookid);}}>
-                        <AntDesign name={"heart"} style={{padding:10, color:themeColor}}/>
+                    <TouchableOpacity >
+                        <AntDesign name={"delete"} style={{padding:10, color:themeColor}}/>
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>

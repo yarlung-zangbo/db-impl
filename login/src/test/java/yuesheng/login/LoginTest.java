@@ -50,6 +50,17 @@ public class LoginTest {
     }
 
     @Test
+    public void logInWithDisabledUser() throws Exception {
+        SecurityMockMvcRequestBuilders.FormLoginRequestBuilder
+                login = formLogin()
+                .user("yz")
+                .password("yz");
+        mockMvc.perform(login)
+                .andExpect(unauthenticated())
+                .andExpect(MockMvcResultMatchers.content().string("{\"status\": \"fail\", \"value\": \"Bad credentials\"}"));
+    }
+
+    @Test
     public void logInWithInvalidUser() throws Exception{
         SecurityMockMvcRequestBuilders.FormLoginRequestBuilder
                 login = formLogin()

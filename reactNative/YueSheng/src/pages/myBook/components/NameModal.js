@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {TextInput, Modal,TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {loginServer, themeColor, width} from "../../variable/Commen";
+import {loginServer, personalServer, themeColor, width} from "../../variable/Commen";
 import Entypo from 'react-native-vector-icons/Entypo';
 
 export default class NameModal extends Component {
@@ -16,20 +16,6 @@ export default class NameModal extends Component {
         this.setState({modalVisible:visible});
     }
 
-    modifyName(){
-        let uri=loginServer+"modifyName";
-        fetch(uri, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'},
-            body: 'name='+this.state.newName,
-        }).then((res)=>{
-            this.setModalVisible(false);
-        })
-    }
-
     render() {
         return (
             <Modal
@@ -38,12 +24,14 @@ export default class NameModal extends Component {
                 visible={this.state.modalVisible}
             >
                 <TouchableWithoutFeedback onPress={()=>{
+                    this.props.finishModifyName(null);
                     this.setModalVisible(false);}}>
                     <View style={styles.container}>
                         <View style={styles.nameView}>
                             <View style={styles.returnView}>
                                 <TouchableOpacity style={styles.returnIcon}
                                                   onPress={()=>{
+                                                      this.props.finishModifyName(null);
                                                       this.setModalVisible(false)
                                                   }}>
                                     <Entypo name={"chevron-thin-down"}/>
@@ -60,8 +48,8 @@ export default class NameModal extends Component {
                             </View>
                             <TouchableOpacity style={styles.finishView}
                             onPress={()=>{
-                                this.modifyName();
-                                this.props.updateName(this.state.newName);
+                                this.props.finishModifyName(this.state.newName);
+                                this.setModalVisible(false);
                             }}>
                                 <Text style={styles.finish}>
                                     保存
@@ -79,7 +67,7 @@ export default class NameModal extends Component {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        justifyContent:'flex-end',
+        justifyContent:'center',
         alignItems:'center',
     },
     nameView:{

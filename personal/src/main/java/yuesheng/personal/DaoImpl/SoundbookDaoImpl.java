@@ -20,14 +20,12 @@ public class SoundbookDaoImpl implements SoundbookDao {
     }
 
     @Override
-    public Soundbook deleteByBookId(int bookId) {
-        Soundbook book=soundbookRepository.deleteByBookId(bookId);
-        soundbookRepository.flush();
-        return book;
+    public Soundbook findByBookid(int bookid) {
+        return soundbookRepository.findByBookid(bookid);
     }
 
     @Override
-    public List<Soundbook> findByName(String name) {
-        return soundbookRepository.findByNameContaining(name);
+    public void deleteBook(int bookid) {
+        soundbookRepository.delete(bookid);
     }
 }

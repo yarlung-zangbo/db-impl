@@ -2,9 +2,12 @@ package yuesheng.personal.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import yuesheng.personal.Entity.Listen;
 import yuesheng.personal.Entity.Soundbook;
+import yuesheng.personal.Service.SoundbookService;
 import yuesheng.personal.Service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -14,13 +17,46 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SoundbookService soundbookService;
+
     @GetMapping("/getSelfBooks")
-    public List<Soundbook> getSelfBooks(String username){
+    public Object getSelfBooks(String username){
         return userService.getSelfBooks(username);
     }
 
     @GetMapping("/getFavorite")
-    public List<Soundbook> getFavotite(String username){
+    public Object getFavotite(String username){
         return userService.getFavorite(username);
+    }
+
+    @GetMapping("/getListenRecord")
+    public Object getListenRecord(String username){
+        return userService.getListenRecorde(username);
+    }
+
+    @PostMapping("/modifyName")
+    public Object modifyName(String username, int bookid, String name, HttpServletRequest request){
+        return soundbookService.modifyName(username, bookid, name);
+    }
+
+    @PostMapping("/deleteBook")
+    public Object deleteBook(String username, int bookid){
+        return soundbookService.deleteBook(username, bookid);
+    }
+
+    @GetMapping("/findSelfBook")
+    public Object findSelfBook(String username, String name){
+        return userService.findSelfBook(username, name);
+    }
+
+    @GetMapping("/findFavorite")
+    public Object findFavorite(String username, String name){
+        return userService.findFavorite(username, name);
+    }
+
+    @PostMapping("/unFavorite")
+    public Object unFavorite(String username, int bookid){
+        return userService.unFavorite(username, bookid);
     }
 }
