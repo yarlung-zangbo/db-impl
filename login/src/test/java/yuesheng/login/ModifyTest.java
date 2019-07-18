@@ -7,18 +7,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RegisterTest {
-    private static final Logger log = LoggerFactory.getLogger(RegisterTest.class);
-    private static final String uri = "/register";
+public class ModifyTest {
+    private static final Logger log = LoggerFactory.getLogger(ModifyTest.class);
+    private static final String request_uri = "/modifyEmail";
+
     // init settings
     @Autowired
     private WebApplicationContext wac;
@@ -48,28 +53,21 @@ public class RegisterTest {
 
     // service test
     @ParameterizedTest(name = "{0} {1} {2} {3} {4} {5}")
-    @DisplayName("TestCase: Register")
+    @DisplayName("TestCase: Email")
     @CsvSource({
-            " ' ' , 2625666138@qq.com, wsy, wsy, 200, '{\"status\":\"fail\",\"values\":\"username cannot be null\"}'",
-            "wsy, 2625666138@qq.com, ' ' , wsy, 200, '{\"status\":\"fail\",\"values\":\"password cannot be null\"}'",
-            "wsy, 2625666138@qq.com, wsy, wsy, 200, '{\"status\":\"ok\",\"values\":\"check emial to activate account\"}'",
-            "wsy, 2625666138@qq.com, wsy, wsy, 200, '{\"status\":\"fail\",\"values\":\"wsy has been registered\"}'",
-            "mbw, 2625666138@qq, mbw, mbw, 200, '{\"status\":\"fail\",\"values\":\"invalid email format\"}'",
-            "mbw, 2625666138@com, mbw, mbw, 200, '{\"status\":\"fail\",\"values\":\"invalid email format\"}'",
-            "mbw, 2625666138.com, mbw, mbw, 200, '{\"status\":\"fail\",\"values\":\"invalid email format\"}'",
-            "mbw, 2625666138@qq.com, mbw, mb , 200, '{\"status\":\"fail\",\"values\":\"different password\"}'",
+            "zxz, yuanzhuo0118@163.com, 200,'{\"status\":\"ok\",\"values\":\"check email to modify email\"}'",
+            "zxz, y@163.com, 200,'{\"status\":\"fail\",\"values\":\"send email fail\"}'"
     })
-    public void registerTest(String username, String email, String password, String confirmPassword, int status, String msg) throws Exception {
+    public void emailTest(String username, String email, int status, String msg) throws Exception {
         // post request
         mockMvc.perform(MockMvcRequestBuilders
-                .post(uri)
+                .post(request_uri)
                 .param("username", username)
-                .param("email", email)
-                .param("password", password)
-                .param("confirmPassword", confirmPassword))
+                .param("email", email))
                 // assert response
                 .andExpect(status().is(status))
                 .andExpect(content().string(msg));
     }
+
 
 }

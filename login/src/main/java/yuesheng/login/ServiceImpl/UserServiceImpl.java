@@ -10,7 +10,6 @@ import yuesheng.login.tool.PackTool;
 import yuesheng.login.tool.TimeTool;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -45,14 +44,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Object checkUser(String username) {
         System.out.println(username);
-        User user=userDao.findByUsername(username);
-        if(user==null){
+        User user = userDao.findByUsername(username);
+        if (user == null) {
             return PackTool.pack("fail", "user not found");
-        }else {
-            if(user.getRegistertime()==null){
+        } else {
+            if (user.getRegistertime() == null) {
                 return PackTool.pack("fail", "user not activated");
             }
-            if(user.getDisabled()!=null && user.getDisabled().compareTo(TimeTool.now())>0){
+            if (user.getDisabled() != null && user.getDisabled().compareTo(TimeTool.now()) > 0) {
                 return PackTool.pack("fail", "user is disabled");
             }
             return PackTool.pack("fail", "password wrong");
@@ -62,25 +61,25 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Object register(String username, String email, String password, String confirmPassword) {
-        if(username.trim().equals(""))
+        if (username.trim().equals(""))
             return PackTool.pack("fail", "username cannot be null");
-        if(password.trim().equals(""))
+        if (password.trim().equals(""))
             return PackTool.pack("fail", "password cannot be null");
-        if(!email.matches("\\w+@\\w+(\\.\\w{2,3})*\\.\\w{2,3}"))
+        if (!email.matches("\\w+@\\w+(\\.\\w{2,3})*\\.\\w{2,3}"))
             return PackTool.pack("fail", "invalid email format");
-        if(!password.equals(confirmPassword))
+        if (!password.equals(confirmPassword))
             return PackTool.pack("fail", "different password");
-        if(userDao.findByUsername(username)!=null){
-            return PackTool.pack("fail", username+" has been registered");
+        if (userDao.findByUsername(username) != null) {
+            return PackTool.pack("fail", username + " has been registered");
         }
         userDao.addUser(username, password, email);
-        String con="<p>"+ this.activateContent+" <br />"+"<a href='"+ this.server+"activate?username="+username+"'>activate</a></p>";
+        String con = "<p>" + this.activateContent + " <br />" + "<a href='" + this.server + "activate?username=" + username + "'>activate</a></p>";
         mailService.setContent(con);
         mailService.setSubject(this.activateSubject);
-        try{
+        try {
             mailService.sendMail(email, username);
             return PackTool.pack("ok", "check emial to activate account");
-        }catch(Exception err){
+        } catch (Exception err) {
             err.printStackTrace();
             return PackTool.pack("fail", "send email fail");
         }
@@ -89,10 +88,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Object activate(String username) {
-        User user=userDao.findByUsername(username);
-        if(user==null)return PackTool.pack("fail", username+" not exist");
-        if(user.getModifyemail()==null) return PackTool.pack("fail", user.getEmail());
-        if(user.getRegistertime()==null){
+        User user = userDao.findByUsername(username);
+        if (user == null) return PackTool.pack("fail", username + " not exist");
+        if (user.getModifyemail() == null) return PackTool.pack("fail", user.getEmail());
+        if (user.getRegistertime() == null) {
             user.setRegistertime(TimeTool.now());
             userDao.save(user);
         }
@@ -102,7 +101,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Object modifyName(String username, String name) {
-        User user=userDao.findByUsername(username);
+        User user = userDao.findByUsername(username);
         user.setName(name);
         userDao.save(user);
         return PackTool.pack("ok", name);
@@ -111,7 +110,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Object modifyGender(String username, int gender) {
-        User user=userDao.findByUsername(username);
+        if (gender > 3)
+            return PackTool.pack("fail", gender);
+
+        User user = userDao.findByUsername(username);
         user.setGender(gender);
         userDao.save(user);
         return PackTool.pack("ok", gender);
@@ -120,11 +122,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Object modifyPassword(String username, String oldPassword, String newPassword, String confirmPassword) {
-        User user=userDao.findByUsername(username);
-        String password=user.getPassword();
-        if(!password.equals(oldPassword))return PackTool.pack("fail", "old password wrong");
-        if(newPassword==null || newPassword.trim().equals(""))return PackTool.pack("fail", "password cannot be null");
-        if(!newPassword.equals(confirmPassword)) return PackTool.pack("fail", "different password");
+        User user = userDao.findByUsername(username);
+        String password = user.getPassword();
+        if (!password.equals(oldPassword)) return PackTool.pack("fail", "old password wrong");
+        if (newPassword == null || newPassword.trim().equals(""))
+            return PackTool.pack("fail", "password cannot be null");
+        if (!newPassword.equals(confirmPassword)) return PackTool.pack("fail", "different password");
         user.setPassword(newPassword);
         userDao.save(user);
         return PackTool.pack("ok", "modify password successfully");
@@ -133,18 +136,18 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Object modifyEmail(String username, String email) {
-        if(!email.matches("\\w+@\\w+(\\.\\w{2,3})*\\.\\w{2,3}"))
+        if (!email.matches("\\w+@\\w+(\\.\\w{2,3})*\\.\\w{2,3}"))
             return PackTool.pack("fail", "invalid email format");
-        User user=userDao.findByUsername(username);
-        String con="<p>"+ this.activateContent+" <br />"+"<a href='"+ this.server+"confirmModifyEmail?username="+username+"'>modify</a></p>";
+        User user = userDao.findByUsername(username);
+        String con = "<p>" + this.activateContent + " <br />" + "<a href='" + this.server + "confirmModifyEmail?username=" + username + "'>modify</a></p>";
         mailService.setSubject(this.modifySubject);
         mailService.setContent(con);
-        try{
+        try {
             mailService.sendMail(email, username);
             user.setModifyemail(email);
             userDao.save(user);
-            return PackTool.pack("ok", "check emial to modify email");
-        }catch(Exception err){
+            return PackTool.pack("ok", "check email to modify email");
+        } catch (Exception err) {
             err.printStackTrace();
             return PackTool.pack("fail", "send email fail");
         }
@@ -152,8 +155,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Object confirmModifyEmail(String username) {
-        User user=userDao.findByUsername(username);
-        if(user.getModifyemail()!=null){
+        User user = userDao.findByUsername(username);
+        if (user.getModifyemail() != null) {
             user.setEmail(user.getModifyemail());
             userDao.save(user);
             return PackTool.pack("ok", user.getModifyemail());

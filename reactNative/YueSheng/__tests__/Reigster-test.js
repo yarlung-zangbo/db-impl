@@ -10,6 +10,6 @@ import RegisterScreen from '../src/pages/register/RegisterScreen';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {
-    const tree = renderer.create(<RegisterScreen />);
+    const tree = renderer.create( < RegisterScreen / > );
     expect(tree).toMatchSnapshot();
 });
