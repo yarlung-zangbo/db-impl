@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     returnView:{
         flexDirection:'row',
         borderBottomWidth:1,
-        borderBottomColor:'#a8a8a8',
+        borderBottomColor:'#fbfbfb',
     },
     returnIcon:{
         height:40,

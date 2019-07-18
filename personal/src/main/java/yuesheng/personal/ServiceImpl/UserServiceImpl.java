@@ -2,6 +2,7 @@ package yuesheng.personal.ServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yuesheng.personal.Dao.SoundbookDao;
 import yuesheng.personal.Dao.UserDao;
 import yuesheng.personal.Entity.Listen;
 import yuesheng.personal.Entity.Soundbook;
@@ -17,6 +18,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private SoundbookDao soundbookDao;
 
     @Override
     public Object getSelfBooks(String username) {
@@ -62,6 +66,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Object favorite(String username, int bookid) {
+        User user=userDao.findByUsername(username);
+        Soundbook book=soundbookDao.findByBookid(bookid);
+        List<Soundbook> favorite= user.getFavorite();
+        for(Soundbook b:favorite){
+            if(b.getBookid()==bookid)
+                return PackTool.pack("ok", 0);
+        }
+        favorite.add(book);
+        userDao.save(user);
+        return PackTool.pack("ok", bookid);
+    }
+
+    @Override
     public Object unFavorite(String username, int bookid) {
         User user=userDao.findByUsername(username);
         List<Soundbook> favorite=user.getFavorite();
@@ -74,4 +92,6 @@ public class UserServiceImpl implements UserService {
         }
         return PackTool.pack("ok", null);
     }
+
+
 }

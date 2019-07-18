@@ -27,7 +27,7 @@ public class LoginTest {
         SecurityMockMvcRequestBuilders.FormLoginRequestBuilder
                 login = formLogin()
                 .user("zxz")
-                .password("xiaxiao");
+                .password("zxz");
         mockMvc.perform(login)
                 .andExpect(authenticated().withUsername("zxz"))
                 .andExpect(MockMvcResultMatchers.content().string("{\"status\": \"ok\"}"));
@@ -38,7 +38,7 @@ public class LoginTest {
         SecurityMockMvcRequestBuilders.FormLoginRequestBuilder
                 login = formLogin()
                 .user("zxz")
-                .password("zxz");
+                .password("xiaxiao");
         mockMvc.perform(login)
                 .andExpect(unauthenticated())
                 .andExpect(MockMvcResultMatchers
