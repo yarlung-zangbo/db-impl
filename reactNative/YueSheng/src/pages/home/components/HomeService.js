@@ -30,7 +30,10 @@ export default class HomeService extends Component<Props> {
                     <AntDesign style={styles.icon} name={"hearto"} />
                     <Text style={styles.iconTitle}>我的收藏</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.iconView}>
+                <TouchableOpacity style={styles.iconView}
+                                  onPress={()=>{
+                                      this.props.navigation.navigate("History");
+                                  }}>
                     <AntDesign style={styles.icon} name={"clockcircleo"} />
                     <Text style={styles.iconTitle}>最近收听</Text>
                 </TouchableOpacity>

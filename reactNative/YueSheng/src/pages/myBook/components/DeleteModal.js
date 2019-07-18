@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import {TextInput, Modal,TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {loginServer, themeColor, width} from "../../variable/Commen";
+import {loginServer, personalServer, themeColor, width} from "../../variable/Commen";
 import Entypo from 'react-native-vector-icons/Entypo';
 
-export default class NameModal extends Component {
+export default class DeleteModal extends Component {
     constructor(props){
         super(props);
         this.state=({
@@ -16,20 +16,6 @@ export default class NameModal extends Component {
         this.setState({modalVisible:visible});
     }
 
-    modifyName(){
-        let uri=loginServer+"modifyName";
-        fetch(uri, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'},
-            body: 'name='+this.state.newName,
-        }).then((res)=>{
-            this.setModalVisible(false);
-        })
-    }
-
     render() {
         return (
             <Modal
@@ -38,35 +24,43 @@ export default class NameModal extends Component {
                 visible={this.state.modalVisible}
             >
                 <TouchableWithoutFeedback onPress={()=>{
+                    this.props.finishDeleteBook(0);
                     this.setModalVisible(false);}}>
                     <View style={styles.container}>
                         <View style={styles.nameView}>
                             <View style={styles.returnView}>
                                 <TouchableOpacity style={styles.returnIcon}
                                                   onPress={()=>{
+                                                      this.props.finishDeleteBook(0);
                                                       this.setModalVisible(false)
                                                   }}>
                                     <Entypo name={"chevron-thin-down"}/>
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.inputView}>
-                                <TextInput style={styles.input}
-                                           onChangeText={(value)=>{
-                                               this.setState({
-                                                   newName:value
-                                               })
-                                           }}
-                                           defaultValue={this.props.name}/>
+                            <View style={styles.node}>
+                                <Text>删除有声书: {this.props.name}?</Text>
                             </View>
-                            <TouchableOpacity style={styles.finishView}
-                            onPress={()=>{
-                                this.modifyName();
-                                this.props.updateName(this.state.newName);
-                            }}>
-                                <Text style={styles.finish}>
-                                    保存
-                                </Text>
-                            </TouchableOpacity>
+                            <View style={styles.finishView}>
+                                <TouchableOpacity style={styles.finish}
+                                                  onPress={()=>{
+                                                      this.props.finishDeleteBook(1);
+                                                      this.setModalVisible(false);
+                                                  }}>
+                                    <Text >
+                                        确定
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.finish}
+                                                  onPress={()=>{
+                                                      this.props.finishDeleteBook(0);
+                                                      this.setModalVisible(false);
+                                                  }}>
+                                    <Text>
+                                        取消
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
@@ -79,7 +73,7 @@ export default class NameModal extends Component {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        justifyContent:'flex-end',
+        justifyContent:'center',
         alignItems:'center',
     },
     nameView:{
@@ -87,7 +81,7 @@ const styles = StyleSheet.create({
         width:width*0.85,
         borderRadius:10,
         marginBottom:20,
-        height:180,
+        height:170,
         alignItems: 'center',
         borderWidth:1,
         borderColor:"#f2f2f2",
@@ -96,7 +90,7 @@ const styles = StyleSheet.create({
     returnView:{
         flexDirection:'row',
         borderBottomWidth:1,
-        borderBottomColor:'#a8a8a8',
+        borderBottomColor:'#f1f1f1',
     },
     returnIcon:{
         height:40,
@@ -104,26 +98,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    inputView:{
-        marginTop:20,
-        flexDirection: 'row',
-        paddingLeft:10,
-        paddingRight:10,
-    },
-    input:{
-        borderBottomWidth: 1,
-        borderBottomColor: '#dedede',
-        flex:1,
+    node:{
+        marginTop:30,
+        marginBottom: 30,
     },
     finishView:{
         flex:1,
-        flexDirection:'row',
-        paddingTop:10,
         alignItems:'center',
+        flexDirection:'row',
     },
     finish:{
+        borderTopColor:'#f1f1f1',
+        borderTopWidth:1,
         flex:1,
-        textAlign:'center',
+        alignItems:'center',
+        justifyContent:'center',
+        height:"100%",
         color:'#000',
     }
 })

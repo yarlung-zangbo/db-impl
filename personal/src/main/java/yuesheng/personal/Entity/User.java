@@ -15,6 +15,7 @@ public class User {
     private String name;
     private List<Soundbook> selfBooks;
     private List<Soundbook> favorite;
+    private List<Listen> listenRecord;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -59,5 +60,16 @@ public class User {
 
     public void setFavorite(List<Soundbook> favorite) {
         this.favorite = favorite;
+    }
+
+    @OneToMany(mappedBy="listener",cascade=CascadeType.ALL)
+    @JsonIgnoreProperties(value={"listener"})
+    @OrderBy(value="time Desc")
+    public List<Listen> getListenRecord() {
+        return listenRecord;
+    }
+
+    public void setListenRecord(List<Listen> listenRecord) {
+        this.listenRecord = listenRecord;
     }
 }

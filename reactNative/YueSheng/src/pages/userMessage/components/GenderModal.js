@@ -24,7 +24,7 @@ export default class GenderModal extends Component {
         ).then((resJson)=>{
             console.log(resJson);
             this.setModalVisible(false);
-        })
+        });
     }
 
     setModalVisible(visible){
@@ -53,6 +53,7 @@ export default class GenderModal extends Component {
                         <TouchableOpacity style={styles.item}
                         onPress={()=>{
                             this.modifyGender(2);
+                            this.props.updateGender("男");
                         }}>
                             <Text style={{width:40, textAlign:'center'}}>
                                 男
@@ -61,6 +62,7 @@ export default class GenderModal extends Component {
                         <TouchableOpacity style={styles.item}
                                           onPress={()=>{
                                               this.modifyGender(1);
+                                              this.props.updateGender("女");
                                           }}>
                             <Text style={{width:40, textAlign:'center'}}>
                                 女

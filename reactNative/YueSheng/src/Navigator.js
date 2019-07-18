@@ -26,6 +26,7 @@ import UserMessageScreen from "./pages/userMessage/UserMessageScreen";
 import ModifyPasswordScreen from "./pages/userMessage/ModifyPasswordScreen";
 import FavoriteScreen from "./pages/favorite/FavoriteScreen";
 import MyBookScreen from "./pages/myBook/MyBookScreen";
+import HistoryScreen from "./pages/history/HistoryScreen";
 
 /*
 const HomeStack=createStackNavigator(
@@ -104,6 +105,7 @@ const AppStack=createStackNavigator(
         TopTab: TopTabNavigator,
         MyBook:MyBookScreen,
         Favorite:FavoriteScreen,
+        History:HistoryScreen,
     },
     {
         headerMode:'none'
@@ -118,6 +120,9 @@ const BottomTabNavigator=createBottomTabNavigator(
     },
     {
         tabBarComponent:BottomTab,
+        tabBarOptions:{
+            keyboardHidesTabBar: 'true'
+        }
     }
 );
 

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface SoundbookDao {
     public Soundbook save(Soundbook soundbook);
-    public Soundbook deleteByBookId(int bookId);
-    public List<Soundbook> findByName(String name);
+    public Soundbook findByBookid(int bookid);
+    public void deleteBook(int bookid);
 }

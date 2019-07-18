@@ -31,8 +31,12 @@ export default class EmailModal extends Component {
             body: 'email='+this.state.newEmail,
         }).then((res=>res.json())
         ).then((resJson)=>{
-            console.log(resJson);
-            this.setModalVisible(false);
+            if(resJson.status=="ok"){
+                this.setModalVisible(false);
+                this.setState({message:"修改后注意检查邮箱，完成邮箱更改"})
+            }else{
+                this.setState({message: resJson.values});
+            }
         })
     }
 
@@ -61,7 +65,8 @@ export default class EmailModal extends Component {
                                        defaultValue={this.props.email}
                                        onChangeText={(value)=>{
                                 this.setState({
-                                    newEmail:value
+                                    newEmail:value,
+                                    message: '修改后注意检查邮箱，完成邮箱更改'
                                 })
                             }}/>
                         </View>

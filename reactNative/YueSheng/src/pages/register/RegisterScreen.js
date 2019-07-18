@@ -43,6 +43,7 @@ export default class LoginScreen extends Component<Props> {
             this.setState({
                 message: resJson.values
             });
+            /*this.props.navigation.goBack(null);*/
             console.log(resJson);
         }).catch((error)=>{
             this.setState({

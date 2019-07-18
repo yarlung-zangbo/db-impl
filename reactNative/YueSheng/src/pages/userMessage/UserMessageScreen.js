@@ -7,8 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet,Modal, Text, View, TouchableOpacity, Image} from 'react-native';
-import {themeColor, width} from "../variable/Commen";
+import {StyleSheet,Modal,Alert,  Text, View, TouchableOpacity, Image} from 'react-native';
+import {loginServer, themeColor, width} from "../variable/Commen";
 import NameModal from "./components/NameModal"
 import GenderModal from "./components/GenderModal"
 import EmailModal from "./components/EmailModal"
@@ -21,13 +21,33 @@ export default class UserMessageScreen extends Component<Props> {
         super(props);
         this.state=({
             user:{},
+            name:"",
+            gender:"",
+            email:"",
         })
     }
 
     componentDidMount(){
-        this.setState({user:this.props.navigation.state.params.user});
+        let user=this.props.navigation.state.params.user;
+        this.setState({user:user});
+        this.setState({
+            name:user.name==='undefined'?user.username:user.name,
+            gender:user.gender>1?"男":"女",
+            email:user.email
+        })
     }
 
+    updateName(value){
+        this.setState({
+            name:value
+        })
+    }
+
+    updateGender(value){
+        this.setState({
+            gender:value
+        })
+    }
 
     render() {
         return (
@@ -45,31 +65,31 @@ export default class UserMessageScreen extends Component<Props> {
                                source={require('YueSheng/src/image/h.jpg')}
                         />
                     </View>
-                    <GenderModal ref="gender"/>
-                    <NameModal ref="name" name={this.state.user.name} />
-                    <EmailModal ref="email" email={this.state.user.email}/>
+                    <GenderModal ref="gender" updateGender={this.updateGender.bind(this)}/>
+                    <NameModal ref="name" name={this.state.name} updateName={this.updateName.bind(this)}/>
+                    <EmailModal ref="email" email={this.state.email}/>
                     <TouchableOpacity style={{paddingTop:10, flexDirection: 'row'}}
                                       onPress={()=>{
                                           this.refs.name.setModalVisible();}}>
                         <Text style={{textAlign:'center', fontSize:16}}>
-                            {this.state.user.name==='undefined'?this.state.user.username:this.state.user.name}
+                            {this.state.name}
                         </Text><Feather name={"edit"} style={{marginLeft:5}}/>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.item} onPress={()=>{
                     this.refs.gender.setModalVisible();}}>
                     <Text style={{width:100,color:"#000"}}>性别</Text>
-                    <Text style={{flex:1}}>{this.state.user.gender>1?"男":"女"}</Text>
+                    <Text style={{flex:1}}>{this.state.gender}</Text>
                     <Entypo name={"chevron-thin-right"} style={{fontSize:18, color:"#b4b4b4"}}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.item} onPress={()=>{
                     this.refs.email.setModalVisible();}}>
                     <Text style={{width:100,color:"#000"}}>邮箱</Text>
-                    <Text style={{flex:1}}>{this.state.user.email}</Text>
+                    <Text style={{flex:1}}>{this.state.email}</Text>
                     <Entypo name={"chevron-thin-right"}  style={{fontSize:18, color:"#b4b4b4"}}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.item} onPress={()=>{
-                    this.props.navigation.navigate("ModifyPassword")
+                    this.props.navigation.navigate("ModifyPassword", {updateUser:this.updateUser})
                 }}>
                     <Text style={{flex:1,color:"#000"}}>账户与安全</Text>
                     <Entypo name={"chevron-thin-right"}  style={{fontSize:18, color:"#b4b4b4"}}/>
