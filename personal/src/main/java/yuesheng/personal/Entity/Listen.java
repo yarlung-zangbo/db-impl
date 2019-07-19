@@ -14,6 +14,7 @@ import javax.persistence.*;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "listenId"
 )
+@JsonIgnoreProperties(value={"listener"})
 public class Listen {
     private int listenId;
     private String time;
@@ -44,8 +45,6 @@ public class Listen {
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "username", unique = true)
-    @JsonIgnoreProperties(value={"password", "selfBooks",
-            "listenRecord", "favorite"})
     public User getListener() {
         return listener;
     }
@@ -56,7 +55,6 @@ public class Listen {
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "bookid", unique = true)
-    @JsonIgnoreProperties(value={"createTime", "commentList"})
     public Soundbook getSoundbook() {
         return soundbook;
     }

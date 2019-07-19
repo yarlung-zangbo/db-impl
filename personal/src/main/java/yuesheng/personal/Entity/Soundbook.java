@@ -8,16 +8,19 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="soundbook", schema="yuesheng", catalog="")
-@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler"})
+@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler", "disabled"})
 
 public class Soundbook {
     private int bookid;
     private String name;
     private User creater;
+    private String disabled;
+
+    /*
     private int mark;
     private String releasetime;
-    private String disabled;
     private String createTime;
+    */
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -42,7 +45,6 @@ public class Soundbook {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="username")
-    @JsonIgnoreProperties(value={"selfBooks", "favorite", "listenRecord"})
     public User getCreater() {
         return creater;
     }
@@ -51,6 +53,18 @@ public class Soundbook {
         this.creater = creater;
     }
 
+    @Basic
+    @Column(name="disabled")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public String getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(String disabled) {
+        this.disabled = disabled;
+    }
+
+    /*
     @Basic
     @Column(name="mark")
     public int getMark() {
@@ -72,16 +86,6 @@ public class Soundbook {
         this.releasetime = releasetime;
     }
 
-    @Basic
-    @Column(name="disabled")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public String getDisabled() {
-        return disabled;
-    }
-
-    public void setDisabled(String disabled) {
-        this.disabled = disabled;
-    }
 
     @Column(name="createtime")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -92,5 +96,5 @@ public class Soundbook {
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
-
+    */
 }
