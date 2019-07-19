@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yuesheng.personal.Dao.SoundbookDao;
 import yuesheng.personal.Dao.UserDao;
-import yuesheng.personal.Entity.Listen;
 import yuesheng.personal.Entity.Soundbook;
 import yuesheng.personal.Entity.User;
 import yuesheng.personal.Service.UserService;
@@ -70,10 +69,10 @@ public class UserServiceImpl implements UserService {
     public Object favorite(String username, int bookid) {
         User user=userDao.findByUsername(username);
         Soundbook book=soundbookDao.findByBookid(bookid);
-        if(book.getDisabled()==null || book.getDisabled().compareTo(TimeTool.now())<=0){
+        if(book.getDisabled().compareTo(TimeTool.now())>0){
             return PackTool.pack("fail", "book disabled");
         }
-        if(book.getReleasetime()==null || book.getReleasetime().compareTo(TimeTool.now())>0){
+        if(book.getReleasetime()==null){
             return PackTool.pack("fail", "book not release");
         }
         List<Soundbook> favorite= user.getFavorite();

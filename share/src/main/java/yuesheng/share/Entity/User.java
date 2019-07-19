@@ -3,13 +3,12 @@ package yuesheng.share.Entity;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import javax.xml.stream.events.Comment;
 import java.util.List;
 
 @Entity
 @Table(name="user", schema="yuesheng", catalog="")
 @JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler",
-       /* "password", "selfBooks", "listenRecord", "favorite", "commentRecord" */})
+        "markRecord", "commentRecord",})
 /*
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -18,19 +17,20 @@ import java.util.List;
 */
 public class User {
 
-    private String userName;
+    private String username;
     private String name;
+    private List<Mark> markRecord;
     private List<Comment> commentRecord;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="username", length=64)
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Basic
@@ -43,7 +43,6 @@ public class User {
     }
 
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties(value={"user"})
     public List<Comment> getCommentRecord() {
         return commentRecord;
     }
@@ -51,4 +50,14 @@ public class User {
     public void setCommentRecord(List<Comment> commentRecord) {
         this.commentRecord = commentRecord;
     }
+
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    public List<Mark> getMarkRecord() {
+        return markRecord;
+    }
+
+    public void setMarkRecord(List<Mark> markRecord) {
+        this.markRecord = markRecord;
+    }
+
 }

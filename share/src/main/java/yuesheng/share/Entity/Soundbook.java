@@ -3,15 +3,16 @@ package yuesheng.share.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import yuesheng.share.Tool.FloatFormat;
 
 import javax.persistence.*;
-import javax.xml.stream.events.Comment;
 import java.util.List;
 
 @Entity
 @Table(name="soundbook", schema="yuesheng", catalog="")
-@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler"
-    /*"commentList"*/})
+@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler",
+    "commentList", "markList", "disabled"})
 /*
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -19,24 +20,25 @@ import java.util.List;
 )
 */
 public class Soundbook {
-    private int bookId;
+    private int bookid;
     private String name;
     private User creater;
-    private int mark;
-    private String release;
+    private float mark;
     private String disabled;
     private String createTime;
+    private String releasetime;
     private List<Comment> commentList;
+    private List<Mark> markList;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="bookid")
-    public int getBookId() {
-        return bookId;
+    public int getbookid() {
+        return bookid;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setbookid(int bookid) {
+        this.bookid = bookid;
     }
 
     @Basic
@@ -51,8 +53,6 @@ public class Soundbook {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="username")
-    @JsonIgnoreProperties(value={"password", "name", "selfBooks",
-    "listenRecord", "favorite", "commentRecord"})
     public User getCreater() {
         return creater;
     }
@@ -63,23 +63,25 @@ public class Soundbook {
 
     @Basic
     @Column(name="mark")
-    public int getMark() {
+    @JsonSerialize(using = FloatFormat.class)
+    public float getMark() {
         return mark;
     }
 
-    public void setMark(int mark) {
+    public void setMark(float mark) {
         this.mark = mark;
     }
 
+
     @Basic
-    @Column(name="release")
+    @Column(name="releasetime")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public String getRelease() {
-        return release;
+    public String getReleasetime() {
+        return releasetime;
     }
 
-    public void setRelease(String release) {
-        this.release = release;
+    public void setReleasetime(String releasetime) {
+        this.releasetime = releasetime;
     }
 
     @Basic
@@ -103,18 +105,6 @@ public class Soundbook {
         this.createTime = createTime;
     }
 
-   /*
-    private List<Listen> listenRecord;
-
-    @OneToMany(mappedBy="bookId",cascade=CascadeType.ALL)
-    public List<Listen> getListenRecord() {
-        return listenRecord;
-    }
-
-    public void setListenRecord(List<Listen> listenRecord) {
-        this.listenRecord = listenRecord;
-    }
-    */
 
    @OneToMany(mappedBy="soundbook", cascade = CascadeType.ALL)
    @JsonIgnoreProperties(value={"soundbook"})
@@ -124,5 +114,15 @@ public class Soundbook {
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
+    }
+
+    @OneToMany(mappedBy="soundbook", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value={"soundbook"})
+    public List<Mark> getMarkList() {
+        return markList;
+    }
+
+    public void setMarkList(List<Mark> markList) {
+        this.markList = markList;
     }
 }
