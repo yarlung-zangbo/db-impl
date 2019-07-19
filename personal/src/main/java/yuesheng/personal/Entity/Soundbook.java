@@ -8,17 +8,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="soundbook", schema="yuesheng", catalog="")
-@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler", "disabled"})
+@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler",
+        "releasetime", "disabled"})
 
 public class Soundbook {
     private int bookid;
     private String name;
     private User creater;
     private String disabled;
+    private String releasetime;
 
     /*
     private int mark;
-    private String releasetime;
     private String createTime;
     */
 
@@ -64,17 +65,6 @@ public class Soundbook {
         this.disabled = disabled;
     }
 
-    /*
-    @Basic
-    @Column(name="mark")
-    public int getMark() {
-        return mark;
-    }
-
-    public void setMark(int mark) {
-        this.mark = mark;
-    }
-
     @Basic
     @Column(name="releasetime")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -84,6 +74,17 @@ public class Soundbook {
 
     public void setReleasetime(String releasetime) {
         this.releasetime = releasetime;
+    }
+
+    /*
+    @Basic
+    @Column(name="mark")
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
     }
 
 

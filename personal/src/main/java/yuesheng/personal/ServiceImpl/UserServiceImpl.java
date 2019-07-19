@@ -9,6 +9,7 @@ import yuesheng.personal.Entity.Soundbook;
 import yuesheng.personal.Entity.User;
 import yuesheng.personal.Service.UserService;
 import yuesheng.personal.tool.PackTool;
+import yuesheng.personal.tool.TimeTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,12 @@ public class UserServiceImpl implements UserService {
     public Object favorite(String username, int bookid) {
         User user=userDao.findByUsername(username);
         Soundbook book=soundbookDao.findByBookid(bookid);
+        if(book.getDisabled()==null || book.getDisabled().compareTo(TimeTool.now())<=0){
+            return PackTool.pack("fail", "book disabled");
+        }
+        if(book.getReleasetime()==null || book.getReleasetime().compareTo(TimeTool.now())>0){
+            return PackTool.pack("fail", "book not release");
+        }
         List<Soundbook> favorite= user.getFavorite();
         for(Soundbook b:favorite){
             if(b.getBookid()==bookid)
@@ -90,7 +97,7 @@ public class UserServiceImpl implements UserService {
                 return PackTool.pack("ok", bookid);
             }
         }
-        return PackTool.pack("ok", null);
+        return PackTool.pack("ok", 0);
     }
 
 

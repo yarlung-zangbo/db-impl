@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")
-public class UserController {
+public class PersonalController {
 
     @Autowired
     private UserService userService;
