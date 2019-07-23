@@ -2,17 +2,14 @@ package yuesheng.personal.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import yuesheng.personal.Entity.Listen;
-import yuesheng.personal.Entity.Soundbook;
 import yuesheng.personal.Service.SoundbookService;
 import yuesheng.personal.Service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @CrossOrigin(allowCredentials = "true")
-public class UserController {
+public class PersonalController {
 
     @Autowired
     private UserService userService;
@@ -53,6 +50,11 @@ public class UserController {
     @GetMapping("/findFavorite")
     public Object findFavorite(String username, String name){
         return userService.findFavorite(username, name);
+    }
+
+    @PostMapping("/favorite")
+    public Object favorite(String username, int bookid){
+        return userService.favorite(username, bookid);
     }
 
     @PostMapping("/unFavorite")

@@ -34,7 +34,7 @@ export default class Item extends Component<Props> {
                         <AntDesign name={"delete"} style={{padding:10, color:themeColor}}/>
                     </TouchableOpacity>
                     <TouchableOpacity >
-                        <Entypo name={"share"} style={{padding:10, color:themeColor}}/>
+                        <AntDesign name={"sharealt"} style={{padding:10, color:themeColor}}/>
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>

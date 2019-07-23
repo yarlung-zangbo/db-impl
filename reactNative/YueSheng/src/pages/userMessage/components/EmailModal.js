@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     returnView:{
         flexDirection:'row',
         borderBottomWidth:1,
-        borderBottomColor:'#a8a8a8',
+        borderBottomColor:'#f9f9f9',
     },
     returnIcon:{
         height:40,

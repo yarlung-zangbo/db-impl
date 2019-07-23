@@ -7,7 +7,8 @@ import java.util.List;
 
 @Entity
 @Table(name="user", schema="yuesheng", catalog="")
-@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler"})
+@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler",
+        "selfBooks", "favorite", "listenRecord"})
 
 public class User {
 
@@ -40,7 +41,6 @@ public class User {
 
     @OneToMany(cascade={CascadeType.REMOVE},fetch=FetchType.LAZY,
             targetEntity = Soundbook.class,mappedBy = "creater")
-    @JsonIgnoreProperties(value={"creater"})
     @OrderBy("createTime DESC ")
     public List<Soundbook> getSelfBooks() {
         return selfBooks;
@@ -53,7 +53,6 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="favorite", joinColumns=@JoinColumn(name="username"),
             inverseJoinColumns = @JoinColumn(name="bookid"))
-    @JsonIgnoreProperties(value={"disabled", "createTime"})
     public List<Soundbook> getFavorite() {
         return favorite;
     }
@@ -63,7 +62,6 @@ public class User {
     }
 
     @OneToMany(mappedBy="listener",cascade=CascadeType.ALL)
-    @JsonIgnoreProperties(value={"listener"})
     @OrderBy(value="time Desc")
     public List<Listen> getListenRecord() {
         return listenRecord;

@@ -114,13 +114,12 @@ export default class LoginScreen extends Component<Props> {
         );
     }
 }
-const b=image+"b.jpg";
 
 const styles = StyleSheet.create({
     container: {
         flex:1,
         alignItems: 'center',
-        backgroundColor: "rgba(255, 255, 255, 0.4)",
+        backgroundColor: "rgba(255, 255, 255, 0.45)",
         justifyContent: 'center',
     },
     avoid:{

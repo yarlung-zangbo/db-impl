@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, View, Text, TouchableOpacity} from 'react-native';
+import {Platform, View, Animated, Easing} from 'react-native';
 import CreateScreen from './pages/create/CreateScreen'
 import HomeScreen from './pages/home/HomeScreen'
 import RecommendScreen from './pages/recommend/RecommendScreen'
@@ -27,6 +27,9 @@ import ModifyPasswordScreen from "./pages/userMessage/ModifyPasswordScreen";
 import FavoriteScreen from "./pages/favorite/FavoriteScreen";
 import MyBookScreen from "./pages/myBook/MyBookScreen";
 import HistoryScreen from "./pages/history/HistoryScreen";
+import PlayScreen from "./pages/play/PlayScreen";
+import RecordScreen from "./pages/create/RecordScreen";
+import CommentScreen from "./pages/comment/CommentScreen";
 
 /*
 const HomeStack=createStackNavigator(
@@ -50,6 +53,7 @@ const RecommendStack=createStackNavigator(
 const CreateStack=createStackNavigator(
     {
         Create: CreateScreen,
+        Record: RecordScreen,
     },
     {
         headerMode:'none'
@@ -71,12 +75,14 @@ const TopTabNavigator=createMaterialTopTabNavigator(
                 title:'推荐'
             }
         },
+        /*
         Create: {
-            screen:CreateScreen,
+            screen:CreateStack,
             navigationOptions:{
                 title:'制作'
             }
         },
+        */
     },
     {
         initialRouteName:'Home',
@@ -85,8 +91,8 @@ const TopTabNavigator=createMaterialTopTabNavigator(
         tabBarOptions:{
             style:{
                 backgroundColor:'#f34b59',
-                paddingTop:14,
-                height:60,
+                paddingTop:5,
+                height:50,
             },
             labelStyle:{
                 fontSize:15,
@@ -100,7 +106,7 @@ const TopTabNavigator=createMaterialTopTabNavigator(
     }
 );
 
-const AppStack=createStackNavigator(
+const MainStack=createStackNavigator(
     {
         TopTab: TopTabNavigator,
         MyBook:MyBookScreen,
@@ -114,8 +120,8 @@ const AppStack=createStackNavigator(
 
 const BottomTabNavigator=createBottomTabNavigator(
     {
-        AppStack:{
-            screen:AppStack,
+        MainStack:{
+            screen:MainStack,
         }
     },
     {
@@ -126,7 +132,7 @@ const BottomTabNavigator=createBottomTabNavigator(
     }
 );
 
-const userStack=createStackNavigator(
+const UserStack=createStackNavigator(
     {
         UserMessage:{
             screen:UserMessageScreen
@@ -143,9 +149,9 @@ const DrawerNavigator=createDrawerNavigator(
         BottomTab:{
             screen: BottomTabNavigator,
         } ,
-        userStack:{
-            screen:userStack,
-        }
+        UserStack:{
+            screen:UserStack,
+        },
     },
     {
         initialRouteName: 'BottomTab',
@@ -153,6 +159,19 @@ const DrawerNavigator=createDrawerNavigator(
         contentComponent:SettingScreen,
     }
 )
+
+const ServiceStack=createStackNavigator(
+    {
+        Drawer: {
+            screen: DrawerNavigator,
+        },
+        Create: CreateScreen,
+        Record: RecordScreen,
+        Comment: CommentScreen,
+    },
+    {
+        headerMode:'none',
+    })
 
 const LogRegStack=createStackNavigator(
     {
@@ -194,15 +213,52 @@ const LogRegStack=createStackNavigator(
     }
 )
 
+const AppStack=createStackNavigator(
+    {
+        ServiceStack:{
+            screen: ServiceStack,
+        },
+        Play:{
+            screen:PlayScreen,
+        },
+    },
+    {
+        headerMode:'none',
+        transitionConfig: () => ({
+            transitionSpec: {
+                duration: 1000,
+                easing: Easing.out(Easing.poly(4)),
+                timing: Animated.timing,
+            },
+            screenInterpolator: sceneProps => {
+                const {layout, position, scene} = sceneProps;
+                const {index} = scene;
+
+                const height = layout.initHeight;
+                const translateY = position.interpolate({
+                    inputRange: [index - 1, index, index + 1],
+                    outputRange: [height, 0, 0],
+                });
+
+                const opacity = position.interpolate({
+                    inputRange: [index - 1, index - 0.99, index],
+                    outputRange: [0, 1, 1],
+                });
+                return {opacity, transform: [{translateY}]};
+            },
+
+        })
+    }
+)
+
 const AppNavigator=createStackNavigator(
     {
         LogReg:{
             screen:LogRegStack,
         },
-        Drawer:{
-            screen:DrawerNavigator,
-        },
-
+        AppStack:{
+            screen:AppStack,
+        }
     },
     {
         headerMode:'none',

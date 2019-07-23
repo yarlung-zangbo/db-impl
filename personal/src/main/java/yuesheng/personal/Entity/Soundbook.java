@@ -8,16 +8,20 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="soundbook", schema="yuesheng", catalog="")
-@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler"})
+@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler",
+        "releasetime", "disabled"})
 
 public class Soundbook {
     private int bookid;
     private String name;
     private User creater;
-    private int mark;
-    private String releasetime;
     private String disabled;
+    private String releasetime;
+
+    /*
+    private int mark;
     private String createTime;
+    */
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -42,34 +46,12 @@ public class Soundbook {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="username")
-    @JsonIgnoreProperties(value={"selfBooks", "favorite", "listenRecord"})
     public User getCreater() {
         return creater;
     }
 
     public void setCreater(User creater) {
         this.creater = creater;
-    }
-
-    @Basic
-    @Column(name="mark")
-    public int getMark() {
-        return mark;
-    }
-
-    public void setMark(int mark) {
-        this.mark = mark;
-    }
-
-    @Basic
-    @Column(name="releasetime")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public String getReleasetime() {
-        return releasetime;
-    }
-
-    public void setReleasetime(String releasetime) {
-        this.releasetime = releasetime;
     }
 
     @Basic
@@ -83,6 +65,29 @@ public class Soundbook {
         this.disabled = disabled;
     }
 
+    @Basic
+    @Column(name="releasetime")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public String getReleasetime() {
+        return releasetime;
+    }
+
+    public void setReleasetime(String releasetime) {
+        this.releasetime = releasetime;
+    }
+
+    /*
+    @Basic
+    @Column(name="mark")
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
+    }
+
+
     @Column(name="createtime")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public String getCreateTime() {
@@ -92,5 +97,5 @@ public class Soundbook {
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
-
+    */
 }

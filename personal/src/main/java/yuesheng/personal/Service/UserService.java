@@ -12,5 +12,6 @@ public interface UserService {
     Object getListenRecorde(String username);
     Object findSelfBook(String username, String name);
     Object findFavorite(String username, String name);
+    Object favorite(String username, int bookid);
     Object unFavorite(String username, int bookid);
 }
