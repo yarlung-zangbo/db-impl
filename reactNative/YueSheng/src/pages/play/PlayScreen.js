@@ -119,7 +119,15 @@ export default class PlayScreen extends Component<Props> {
             if(this.state.playing){
                 this.state.whoosh.pause();
             }else{
-                this.state.whoosh.play();
+                this.state.whoosh.play((success)=>{
+                    if(success) {
+                        this.setState({playing:false, pause:false, time:0, second:0, minute:0});
+                        console.log('success - 播放成功')
+                    }else {
+                        this.setState({playing:false, pause:false, time:0, second:0, minute:0});
+                        console.log('fail - 播放失败')
+                    }
+                });
             }
             this.setState({playing:!this.state.playing, pause:!this.state.pause});
         }
