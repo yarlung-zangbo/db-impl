@@ -12,7 +12,6 @@ import {
     DrawerActions,
 } from 'react-navigation';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Feather from 'react-native-vector-icons/Feather';
 import {themeColor, height,width, personalServer} from "../variable/Commen";
 import Item from './components/Item'
 import NameModal from './components/NameModal'

@@ -31,38 +31,39 @@ export default class BottomTab extends Component<Props> {
     render() {
         return (
             <BoxShadow setting={shadowOpt} >
-                <View style={styles.container}>
-                    <View style={styles.userHeader}>
-                        <Image style={styles.headerIcon}
-                               source={require('YueSheng/src/image/p.jpg')}
-                        />
-                        <View style={styles.msgIcon}>
-                            <Text>
-                                动物园一日游
-                            </Text>
-                            <Text style={{color:'#aaa', fontSize: 13}}>
-                                wsy
-                            </Text>
+                    <TouchableOpacity style={styles.container}
+                                      onPress={()=>{this.props.navigation.navigate("Play");}}>
+                        <View style={styles.userHeader}>
+                            <Image style={styles.headerIcon}
+                                   source={require('YueSheng/src/image/p.jpg')}
+                            />
+                            <View style={styles.msgIcon}>
+                                <Text>
+                                    动物园一日游
+                                </Text>
+                                <Text style={{color:'#aaa', fontSize: 13}}>
+                                    wsy
+                                </Text>
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.player}>
-                        <TouchableOpacity style={styles.playIconView} onPress={()=>{
-                            this.playBook();
-                            this.setState((preState)=>{
-                                if(preState.isPlaying){
-                                    return {play: "play-circle-filled", isPlaying: false};
-                                }else{
-                                    return {play: "pause-circle-filled", isPlaying: true};
-                                }
-                            })
-                        }}>
-                            <MaterialIcons name={this.state.play} style={styles.playIcon}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.playIconView}>
-                            <MaterialCommunityIcons name={"skip-next-circle"} style={styles.playIcon}/>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                        <View style={styles.player}>
+                            <TouchableOpacity style={styles.playIconView} onPress={()=>{
+                                this.playBook();
+                                this.setState((preState)=>{
+                                    if(preState.isPlaying){
+                                        return {play: "play-circle-filled", isPlaying: false};
+                                    }else{
+                                        return {play: "pause-circle-filled", isPlaying: true};
+                                    }
+                                })
+                            }}>
+                                <MaterialIcons name={this.state.play} style={styles.playIcon}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.playIconView}>
+                                <MaterialCommunityIcons name={"skip-next-circle"} style={styles.playIcon}/>
+                            </TouchableOpacity>
+                        </View>
+                    </TouchableOpacity>
             </BoxShadow>
         );
     }

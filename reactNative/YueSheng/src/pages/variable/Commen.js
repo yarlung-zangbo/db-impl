@@ -7,3 +7,4 @@ export const width=Dimensions.get("window").width;
 export const height=Dimensions.get("window").height;
 export const loginServer="http://192.168.43.124:8087/yuesheng/";
 export const personalServer="http://192.168.43.124:8088/yuesheng/";
+export const shareServer="http://192.168.43.124:8089/yuesheng/";
