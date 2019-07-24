@@ -60,10 +60,11 @@ export default class PlayScreen extends Component<Props> {
 
     clearTime(){
         this.setState({
+            playing:false,
+            pause:false,
             time:0,
             second:0,
-            minute:0
-        });
+            minute:0});
     }
 
     getBook(){
@@ -84,6 +85,7 @@ export default class PlayScreen extends Component<Props> {
             )
         });
         */
+        this.setState({playing:true});
         this.setState({
             playing:true,
             whoosh:new Sound(this.state.audioPath, '', (err) => {
@@ -100,11 +102,10 @@ export default class PlayScreen extends Component<Props> {
                 this.setState({playing:true, pause:false});
                 this.setTime();
                 this.state.whoosh.play(success => {
+                    this.clearTime();
                     if(success) {
-                        this.setState({playing:false, pause:false, time:0, second:0, minute:0});
                         console.log('success - 播放成功')
                     }else {
-                        this.setState({playing:false, pause:false, time:0, second:0, minute:0});
                         console.log('fail - 播放失败')
                     }
                 })
@@ -118,18 +119,20 @@ export default class PlayScreen extends Component<Props> {
         }else{
             if(this.state.playing){
                 this.state.whoosh.pause();
+                this.setState({playing:false, pause:true});
             }else{
-                this.state.whoosh.play((success)=>{
+                this.setState({
+                    playing: true, pause:false
+                })
+                this.state.whoosh.play(success=>{
+                    this.clearTime();
                     if(success) {
-                        this.setState({playing:false, pause:false, time:0, second:0, minute:0});
                         console.log('success - 播放成功')
                     }else {
-                        this.setState({playing:false, pause:false, time:0, second:0, minute:0});
                         console.log('fail - 播放失败')
                     }
                 });
             }
-            this.setState({playing:!this.state.playing, pause:!this.state.pause});
         }
     }
 
