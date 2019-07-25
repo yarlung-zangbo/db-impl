@@ -99,5 +99,13 @@ public class UserServiceImpl implements UserService {
         return PackTool.pack("ok", 0);
     }
 
+    @Override
+    public Object checkFavorite(int bookid, String username) {
+        Integer id=userDao.checkFavorite(bookid, username);
+        if(id!=null)
+            return PackTool.pack("ok", true);
+        return PackTool.pack("fail", false);
+    }
+
 
 }

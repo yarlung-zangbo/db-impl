@@ -108,6 +108,7 @@ public class Soundbook {
 
    @OneToMany(mappedBy="soundbook", cascade = CascadeType.ALL)
    @JsonIgnoreProperties(value={"soundbook"})
+   @OrderBy("time DESC")
     public List<Comment> getCommentList() {
         return commentList;
     }

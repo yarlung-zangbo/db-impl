@@ -56,4 +56,14 @@ public class ShareController {
         return markService.mark(username, bookid, score);
     }
 
+    @GetMapping("/getMark")
+    public Object getMark(String username, int bookid){
+        return markService.getMark(username, bookid);
+    }
+
+    @GetMapping("/getPersonalComment")
+    public Object getPersonalComment(String username){
+        return userService.getComments(username);
+    }
+
 }

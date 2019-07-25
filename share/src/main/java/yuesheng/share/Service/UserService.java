@@ -8,4 +8,6 @@ public interface UserService {
     /* Test */
     public List<User> getAllUser();
     /* Test */
+
+    public Object getComments(String username);
 }

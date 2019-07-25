@@ -24,4 +24,9 @@ public class UserDaoImpl implements UserDao {
         return userRepository.saveAndFlush(user);
     }
 
+    @Override
+    public Integer checkFavorite(int bookid, String username) {
+        return userRepository.checkFavorite(bookid, username);
+    }
+
 }
