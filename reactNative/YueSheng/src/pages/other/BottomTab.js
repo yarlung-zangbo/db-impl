@@ -11,7 +11,7 @@ import {StyleSheet, Alert, Text, Image, View, Dimensions, TouchableOpacity} from
 import {BoxShadow} from 'react-native-shadow';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import {NavigationActions} from "react-navigation";
 
 
 export default class BottomTab extends Component<Props> {
@@ -19,18 +19,30 @@ export default class BottomTab extends Component<Props> {
     constructor(props) {
         super(props);
         this.state={
-            play:"play-circle-filled",
-            isPlaying: false,
         };
     }
+
+    setPlaying =NavigationActions.setParams({
+            params: {playing: true },
+            key: 'BottomTab'});
+
+    setPause=NavigationActions.setParams({
+        params: {playing: false},
+        key: 'BottomTab'});
 
     playBook(){
         Alert.alert("playBook");
     }
 
+    setPlay(){
+        if(this.props.navigation.state.params.playing)
+            this.props.navigation.dispatch(this.setPause);
+        else
+            this.props.navigation.dispatch(this.setPlaying);
+    }
+
     render() {
         return (
-            <BoxShadow setting={shadowOpt} >
                     <TouchableOpacity style={styles.container}
                                       onPress={()=>{this.props.navigation.navigate("Play");}}>
                         <View style={styles.userHeader}>
@@ -39,32 +51,26 @@ export default class BottomTab extends Component<Props> {
                             />
                             <View style={styles.msgIcon}>
                                 <Text>
-                                    动物园一日游
+                                    {this.props.navigation.state.params.name}
                                 </Text>
                                 <Text style={{color:'#aaa', fontSize: 13}}>
-                                    wsy
+                                    {this.props.navigation.state.params.user}
                                 </Text>
                             </View>
                         </View>
                         <View style={styles.player}>
                             <TouchableOpacity style={styles.playIconView} onPress={()=>{
-                                this.playBook();
-                                this.setState((preState)=>{
-                                    if(preState.isPlaying){
-                                        return {play: "play-circle-filled", isPlaying: false};
-                                    }else{
-                                        return {play: "pause-circle-filled", isPlaying: true};
-                                    }
-                                })
+                                this.setPlay();
                             }}>
-                                <MaterialIcons name={this.state.play} style={styles.playIcon}/>
+                                <MaterialIcons
+                                    name={this.props.navigation.state.params.playing? "pause-circle-filled":"play-circle-filled"}
+                                    style={styles.playIcon}/>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.playIconView}>
                                 <MaterialCommunityIcons name={"skip-next-circle"} style={styles.playIcon}/>
                             </TouchableOpacity>
                         </View>
                     </TouchableOpacity>
-            </BoxShadow>
         );
     }
 }
@@ -84,7 +90,8 @@ const styles = StyleSheet.create({
     container: {
         flexDirection:'row',
         height: 60,
-        flex:1,
+        borderTopColor:'#eeeeee',
+        borderTopWidth:1,
         backgroundColor:'#f9f9f9',
         alignItems:'center',
         paddingLeft:20,
@@ -102,7 +109,6 @@ const styles = StyleSheet.create({
     },
     msgIcon:{
         marginLeft:10,
-        alignItems:'center',
     },
     player:{
         flexDirection:'row',

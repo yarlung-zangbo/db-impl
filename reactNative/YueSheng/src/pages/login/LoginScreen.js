@@ -69,6 +69,10 @@ export default class LoginScreen extends Component<Props> {
       });
   }
 
+  toHome(){
+    this.props.navigation.navigate("Home");
+  }
+
   simpleLogin () {
     let uri = loginServer + 'isLogin';
     this.setState ({
@@ -90,7 +94,7 @@ export default class LoginScreen extends Component<Props> {
             .then (resJson => {
               console.log (resJson);
             });
-          this.props.navigation.navigate ('Home');
+          this.props.navigation.navigate ('BottomTab', {name: ' ', user:' ', playing: false});
         } else {
           this.setState ({
             message: 'please login',

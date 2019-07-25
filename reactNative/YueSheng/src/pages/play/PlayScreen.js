@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, View, Animated, Easing, TouchableOpacity} from 'react-native';
+import {Alert, StyleSheet, Text, View, Animated, Easing, TouchableOpacity} from 'react-native';
 import {themeColor, width, height, personalServer, shareServer} from "../variable/Commen"
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';

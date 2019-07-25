@@ -7,13 +7,16 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, Dimensions, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Alert, View, Button, Dimensions, Image, TouchableOpacity} from 'react-native';
 import {
     DrawerActions,
 } from 'react-navigation';
 import UserComponent from './components/UserComponent'
 import HomeService from './components/HomeService'
 export default class HomeScreen extends Component<Props> {
+
+
+
     render() {
         return (
             <View style={styles.container}>

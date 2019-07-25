@@ -157,7 +157,7 @@ const DrawerNavigator=createDrawerNavigator(
         initialRouteName: 'BottomTab',
         drawerWidth: 285,
         contentComponent:SettingScreen,
-    }
+    },
 )
 
 const ServiceStack=createStackNavigator(

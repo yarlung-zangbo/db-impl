@@ -20,7 +20,8 @@ export default class HomeService extends Component<Props> {
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.iconView}
                                       onPress={()=>{
-                                          this.props.navigation.navigate("MyBook");
+                                          this.props.navigation.navigate("MyBook",
+                                              {setParams: this.props.setParams});
                                       }}>
                         <Fontisto style={styles.icon} name={"music-note"} />
                         <Text style={styles.iconTitle}>我的有声书</Text>

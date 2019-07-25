@@ -152,6 +152,7 @@ export default class MyBookScreen extends Component<Props> {
                         }}
                         keyExtractor={(item, index) => index}
                         renderItem={({item}) => <Item book={item}
+                                                      navigation={this.props.navigation}
                                                       deleteBook={this.deleteBook.bind(this)}
                                                       modifyName={this.modifyName.bind(this)}/>}
                         ListFooterComponent={<View style={{height:100}}></View>}
