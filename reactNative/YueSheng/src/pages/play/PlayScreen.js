@@ -13,9 +13,11 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Sound  from "react-native-sound";
+import CommentModel from './components/CommentModel'
+import MarkModel from './components/MarkModel'
 
 export default class PlayScreen extends Component<Props> {
 
@@ -24,8 +26,9 @@ export default class PlayScreen extends Component<Props> {
         this.spinValue = new Animated.Value(0);
         this.state =({
             playing:false,
-            book:undefined,
             pause:false,
+            book:undefined,
+            favorite:false,
             whoosh:undefined,
             audioPath:"http://zjyd.sc.chinaz.net/Files/DownLoad/sound1/201905/11572.wav",
             totalTime:0,
@@ -73,7 +76,15 @@ export default class PlayScreen extends Component<Props> {
             this.setState({
                 book: resJson.values,
             });
+            this.checkFavorite(this.state.book.bookid);
         });
+    }
+
+    checkFavorite(bookid){
+        let uri=personalServer+"checkFavorite?username=zxz&bookid="+bookid;
+        fetch(uri).then((res)=>res.json()).then((resJson)=>{
+            this.setState({favorite: resJson.values});
+        })
     }
 
     getSound(){
@@ -145,6 +156,34 @@ export default class PlayScreen extends Component<Props> {
         }).start(()=>this.spin())
     }
 
+    unFavorite(){
+        let uri=personalServer+"unFavorite";
+        fetch(uri, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'username='+'zxz'+'&bookid='+this.state.book.bookid
+        }).then((res)=>{
+            this.setState({favorite:false});
+        })
+    }
+
+    favorite(){
+        let uri=personalServer+"favorite";
+        fetch(uri, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'username='+'zxz'+'&bookid='+this.state.book.bookid
+        }).then((res)=>{
+            this.setState({favorite:true});
+        })
+    }
+
     render() {
         const {user, pwd, fadeAnim}=this.state;
         const spin=this.spinValue.interpolate({
@@ -153,6 +192,8 @@ export default class PlayScreen extends Component<Props> {
         })
         return (
             <View style={styles.container}>
+                <CommentModel ref="comment"/>
+                <MarkModel ref="mark" bookid={this.state.book==undefined?0:this.state.book.bookid} username={"zxz"}/>
                 <TouchableOpacity  onPress={()=>{this.props.navigation.goBack(null)}}
                     style={styles.returnView}>
                     <Entypo style={styles.returnIcon} name={"chevron-thin-down"}/>
@@ -168,13 +209,27 @@ export default class PlayScreen extends Component<Props> {
                         </View>
                     </View>
                     <View style={styles.serviceView}>
-                        <TouchableOpacity>
-                            <AntDesign  style={{color: '#ccc', fontSize: 18}} name={"hearto"}/>
+                        <TouchableOpacity onPress={()=>{
+                            if(this.state.favorite)
+                                this.unFavorite();
+                            else
+                                this.favorite();
+                        }}>
+                            <AntDesign  style={{color:this.state.favorite?themeColor:'#ccc', fontSize: 18}}
+                                        name={this.state.favorite?"heart":"hearto"}/>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{
+                            this.refs.comment.setState({bookid: this.state.book.bookid});
+                            this.refs.comment.getComments(this.state.book.bookid);
+                            this.refs.comment.setModalVisible(true);}}>
                             <Octicons  style={{color: '#ccc', fontSize: 18}} name={"comment"}/>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity ref={"star"} onPress={()=>{
+                            this.refs.mark.getMark('zxz', this.state.book.bookid)
+                            this.refs.star.measure((x,y,width,height,pageX, pageY)=>{
+                                this.refs.mark.setModalVisible(true, pageX, pageY);
+                            })
+                        }}>
                             <AntDesign  style={{color: '#ccc', fontSize: 18}} name={"staro"}/>
                         </TouchableOpacity>
                     </View>

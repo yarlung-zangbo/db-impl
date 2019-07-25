@@ -14,4 +14,5 @@ public interface UserService {
     Object findFavorite(String username, String name);
     Object favorite(String username, int bookid);
     Object unFavorite(String username, int bookid);
+    Object checkFavorite(int bookid, String username);
 }

@@ -61,4 +61,9 @@ public class PersonalController {
     public Object unFavorite(String username, int bookid){
         return userService.unFavorite(username, bookid);
     }
+
+    @GetMapping("/checkFavorite")
+    public Object checkFavorite(String username, int bookid){
+        return userService.checkFavorite(bookid, username);
+    }
 }

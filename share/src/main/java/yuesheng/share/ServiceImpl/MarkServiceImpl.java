@@ -34,14 +34,27 @@ public class MarkServiceImpl implements MarkService {
         if(check!=null)
             return PackTool.pack("fail", check);
         User user=userDao.findByUsername(username);
-        if(markDao.getMark(user,book)!=null)
-            return PackTool.pack("fail", "only once mark allow");
-        Mark mark=new Mark();
-        mark.setSoundbook(book);
-        mark.setUser(user);
-        mark.setScore(score);
+        Mark mark=markDao.getMark(user,book);
+        if(mark==null){
+            mark=new Mark();
+            mark.setSoundbook(book);
+            mark.setUser(user);
+            mark.setScore(score);
+        }else{
+            mark.setScore(score);
+        }
         markDao.save(mark);
         book.setMark(markDao.caculateMark(bookid));
         return PackTool.pack("ok", book.getMark());
+    }
+
+    @Override
+    public Object getMark(String username, int bookid) {
+        User user=userDao.findByUsername(username);
+        Soundbook book=soundbookDao.findByBookid(bookid);
+        Mark mark=markDao.getMark(user, book);
+        if(mark==null)
+            return PackTool.pack("ok", 0);
+        return PackTool.pack("ok", mark.getScore());
     }
 }
