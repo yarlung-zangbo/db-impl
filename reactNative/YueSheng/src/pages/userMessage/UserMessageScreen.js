@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {StyleSheet,Modal,Alert,  Text, View, TouchableOpacity, Image} from 'react-native';
-import {loginServer, themeColor, width} from "../variable/Commen";
+import {loginServer, themeColor, width} from "../variable/Common";
 import NameModal from "./components/NameModal"
 import GenderModal from "./components/GenderModal"
 import EmailModal from "./components/EmailModal"

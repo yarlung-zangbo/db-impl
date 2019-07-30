@@ -12,7 +12,7 @@ import {
     DrawerActions,
 } from 'react-navigation';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {themeColor, height,width, personalServer} from "../variable/Commen";
+import {themeColor, height,width, personalServer} from "../variable/Common";
 import Item from './components/Item'
 import NameModal from './components/NameModal'
 import DeleteModal from './components/DeleteModal'
@@ -156,6 +156,10 @@ export default class MyBookScreen extends Component<Props> {
                                                       deleteBook={this.deleteBook.bind(this)}
                                                       modifyName={this.modifyName.bind(this)}/>}
                         ListFooterComponent={<View style={{height:100}}></View>}
+                        ListEmptyComponent={
+                            <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+                                <Text>还没有属于自己的有声书 ^=^</Text>
+                            </View>}
                     />
             </View>
         );

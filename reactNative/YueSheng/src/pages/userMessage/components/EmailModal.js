@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {TextInput, Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {loginServer, themeColor, width} from "../../variable/Commen";
+import {loginServer, themeColor, width} from "../../variable/Common";
 import Entypo from 'react-native-vector-icons/Entypo';
 
 export default class EmailModal extends Component {

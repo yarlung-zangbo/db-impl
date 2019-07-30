@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
-import {themeColor, height,width, personalServer} from "../variable/Commen";
+import {themeColor, height,width, personalServer} from "../variable/Common";
 import Item from './components/Item'
 export default class HistoryScreen extends Component<Props> {
     constructor(props){
@@ -45,10 +45,16 @@ export default class HistoryScreen extends Component<Props> {
                     style={{width:width,height:height-100}}
                     refreshing={false}
                     initialNumToRender={8}
+                    keyExtractor={(item, index) => index}
                     onRefresh={()=>{
                     }}
-                    renderItem={({item}) => <Item listen={item}/>}
+                    renderItem={({item}) => <Item listen={item}
+                                                  navigation={this.props.navigation}/>}
                     ListFooterComponent={<View style={{height:100}}></View>}
+                    ListEmptyComponent={
+                        <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+                            <Text>空收听记录</Text>
+                        </View>}
                 />
             </View>
         );

@@ -7,9 +7,8 @@
  */
 
 import React, {Component} from 'react';
-import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {DrawerActions} from "react-navigation";
-import {loginServer, themeColor} from '../../variable/Commen'
+import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {themeColor} from '../../variable/Common'
 import {BoxShadow} from "react-native-shadow";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -17,22 +16,7 @@ export default class UserComponent extends Component<Props> {
 
     constructor(props){
         super(props);
-        this.state=({
-            user:{},
-        })
-    }
-
-    componentDidMount(): void {
-        fetch(loginServer+"userMessage",{
-            method:"GET",
-            credentials: 'include'
-        }).then((res)=>res.json()
-        ).then((resJson)=>{
-            this.setState({
-                user: resJson.values
-            })
-            console.log(user);
-        })
+        this.state=({})
     }
 
     render() {
@@ -47,14 +31,14 @@ export default class UserComponent extends Component<Props> {
                     <View style={styles.msgIcon}>
                         <View style={{flexDirection: 'row'}}>
                             <Text style={{fontSize:20}}>
-                                {this.state.user.name==='undefined'?this.state.user.username:this.state.user.name}
+                                {this.props.user.name==='undefined'?this.props.user.username:this.props.user.name}
                             </Text>
                             <Text style={{color:themeColor, marginLeft:10}}>
-                                <Ionicons name={this.state.user.gender===0?"ios-female":"ios-male"} />
+                                <Ionicons name={this.props.user.gender===0?"ios-female":"ios-male"} />
                             </Text>
                         </View>
                         <Text style={{color: '#aaa', fontSize: 11}}>
-                            {this.state.user.username}
+                            {this.props.user.username}
                         </Text>
                     </View>
                 </View>

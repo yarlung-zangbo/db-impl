@@ -10,12 +10,16 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Alert, Dimensions, Image, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {themeColor} from "../../variable/Commen";
+import {themeColor} from "../../variable/Common";
 import { NavigationActions } from 'react-navigation';
+import Sound from "react-native-sound";
 export default class Item extends Component<Props> {
 
     setParamsAction = NavigationActions.setParams({
-        params: { name: this.props.book.name, user: this.props.book.creater.name, playing: true },
+        params: {
+            book:this.props.book,
+            newPlay:true,
+        },
         key: 'BottomTab',
     });
 
@@ -23,7 +27,8 @@ export default class Item extends Component<Props> {
         return (
             <TouchableOpacity
                 onPress={()=>{
-                    this.props.navigation.dispatch(this.setParamsAction);}}
+                    this.props.navigation.dispatch(this.setParamsAction);
+                }}
                 style={styles.container}>
                 <View style={styles.item}>
                     <View style={{flex:1}}>

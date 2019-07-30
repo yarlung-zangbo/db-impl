@@ -11,7 +11,7 @@ import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {themeColor, height,width, personalServer} from "../variable/Commen";
+import {themeColor, height,width, personalServer} from "../variable/Common";
 
 
 export default class CreateScreen extends Component<Props> {

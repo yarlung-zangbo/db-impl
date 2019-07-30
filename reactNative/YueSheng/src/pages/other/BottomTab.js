@@ -12,6 +12,8 @@ import {BoxShadow} from 'react-native-shadow';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {NavigationActions} from "react-navigation";
+import {setLoaded, setLoading, setPause, setPlaying,} from "../variable/Common";
+import Sound from "react-native-sound";
 
 
 export default class BottomTab extends Component<Props> {
@@ -22,48 +24,121 @@ export default class BottomTab extends Component<Props> {
         };
     }
 
-    setPlaying =NavigationActions.setParams({
-            params: {playing: true },
-            key: 'BottomTab'});
-
-    setPause=NavigationActions.setParams({
-        params: {playing: false},
-        key: 'BottomTab'});
-
-    playBook(){
-        Alert.alert("playBook");
+    componentDidMount(): void {
+        this.playWatcher();
     }
 
     setPlay(){
-        if(this.props.navigation.state.params.playing)
-            this.props.navigation.dispatch(this.setPause);
-        else
-            this.props.navigation.dispatch(this.setPlaying);
+        if(this.pickParams().playing) {
+            this.props.navigation.dispatch(setPause);
+        } else {
+            this.props.navigation.dispatch(setPlaying);
+        }
+    }
+
+    setLoading(){
+        this.props.navigation.setParams({loading: true});
+    }
+
+    setLoaded(){
+        this.props.navigation.setParams({loading:false});
+    }
+
+    bookUndefined(){
+        return this.props.navigation.state.params.book==undefined;
+    }
+
+    pickParams(){
+        return this.props.navigation.state.params;
+    }
+
+    playWatcher(){
+        setInterval(() => {
+            if(this.pickParams().newPlay && !this.pickParams().loading){
+                if(this.pickParams().whoosh!=undefined){
+                    this.pickParams().whoosh.stop();
+                    this.pickParams().whoosh.release();
+                }
+                this.props.navigation.setParams({newPlay:false, whoosh:undefined, playing:false});
+                this.playSound();
+            }
+        }, 500);
+    }
+
+    getSound() {
+        /*
+        let uri=personalServer+"getTextAudio?bookid="+this.pickParams().book.bookid;
+        this.setState({audioPath: uri});
+        */
+        this.setLoading();
+        this.setPlay();
+        const whoosh = new Sound("http://zjyd.sc.chinaz.net/Files/DownLoad/sound1/201905/11572.wav", '', (err) => {
+            if (err) {
+                return console.log(err);
+            }
+            whoosh.setNumberOfLoops(0);
+            this.setLoaded();
+            whoosh.play(success => {
+                this.setPlay();
+                if (success) {
+                    console.log('success - 播放成功')
+                } else {
+                    console.log('fail - 播放失败')
+                }
+            })
+        })
+        let setWhoosh = NavigationActions.setParams({
+            params: {whoosh: whoosh},
+            key: 'BottomTab'
+        });
+        this.props.navigation.dispatch(setWhoosh);
+    }
+
+
+    playSound() {
+        if(this.pickParams().loading)return;
+        if (this.pickParams().whoosh == undefined) {
+            this.getSound();
+        } else {
+            this.setPlay();
+            if (this.pickParams().playing) {
+                this.pickParams().whoosh.pause();
+            } else {
+                this.pickParams().whoosh.play(success => {
+                    this.setPlay();
+                    if (success) {
+                        console.log('success - 播放成功')
+                    } else {
+                        console.log('fail - 播放失败')
+                    }
+                });
+            }
+        }
     }
 
     render() {
         return (
                     <TouchableOpacity style={styles.container}
-                                      onPress={()=>{this.props.navigation.navigate("Play");}}>
+                                      onPress={()=>{
+                                          this.props.navigation.navigate(
+                                              "Play", this.pickParams())}}>
                         <View style={styles.userHeader}>
                             <Image style={styles.headerIcon}
                                    source={require('YueSheng/src/image/p.jpg')}
                             />
                             <View style={styles.msgIcon}>
                                 <Text>
-                                    {this.props.navigation.state.params.name}
+                                    {this.bookUndefined()?" ":this.pickParams().book.name}
                                 </Text>
                                 <Text style={{color:'#aaa', fontSize: 13}}>
-                                    {this.props.navigation.state.params.user}
+                                    {this.bookUndefined()?" ":this.pickParams().book.creater.name}
                                 </Text>
                             </View>
                         </View>
                         <View style={styles.player}>
-                            <TouchableOpacity style={styles.playIconView} onPress={()=>{
-                                this.setPlay();
-                            }}>
+                            <TouchableOpacity style={styles.playIconView} onPress={()=>{this.playSound();}}>
                                 <MaterialIcons
-                                    name={this.props.navigation.state.params.playing? "pause-circle-filled":"play-circle-filled"}
+                                    name={this.pickParams().playing? "pause-circle-filled":"play-circle-filled"}
                                     style={styles.playIcon}/>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.playIconView}>

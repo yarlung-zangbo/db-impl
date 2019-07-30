@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Alert, Text, KeyboardAvoidingView, TouchableOpacity, View, ImageBackground, TextInput} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {themeColor, image, width, loginServer} from '../variable/Commen'
+import {themeColor, image, width, loginServer} from '../variable/Common'
 export default class LoginScreen extends Component<Props> {
 
     constructor(props) {

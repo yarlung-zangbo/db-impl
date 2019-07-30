@@ -9,9 +9,9 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button, Dimensions, Image, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Entypo from 'react-native-vector-icons/Entypo';
 import {themeColor} from "../../variable/Common";
 import {NavigationActions} from "react-navigation";
+
 export default class Item extends Component<Props> {
 
     setParamsAction = NavigationActions.setParams({
@@ -27,19 +27,20 @@ export default class Item extends Component<Props> {
             <TouchableOpacity onPress={()=>{
                 this.props.navigation.dispatch(this.setParamsAction);
             }}
-                style={styles.container}>
+                              style={styles.container}>
                 <View style={styles.item}>
-                    <View style={{flex:1}}>
-                        <Text style={{fontSize:16, color: "#000"}}>
-                            {this.props.book.name}
-                        </Text>
-                        <Text>
+                    <View style={{}}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={{fontSize:14, color: "#000"}}>{this.props.book.name}</Text>
+                            <Text style={{width:40,color: themeColor, fontStyle: 'italic', fontSize:12}}>  {this.props.book.mark}</Text>
+                        </View>
+                        <Text style={{fontSize:11}}>
                             {this.props.book.creater.name}
                         </Text>
                     </View>
-                    <TouchableOpacity onPress={()=>{this.props.unFavorite(this.props.book.bookid);}}>
-                        <AntDesign name={"heart"} style={{padding:10, color:themeColor}}/>
-                    </TouchableOpacity>
+                    <View>
+                        <Text style={{color: "#888", fontSize:10}}>release:{this.props.book.releasetime}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>
         );
@@ -60,5 +61,6 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         paddingLeft:5,
         paddingRight:5,
+        justifyContent: 'space-between',
     }
 });

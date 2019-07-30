@@ -21,7 +21,7 @@ import {
     createStackNavigator,
     createBottomTabNavigator
 } from 'react-navigation';
-import {themeColor, width} from "./pages/variable/Commen";
+import {themeColor, transitionConfig, width} from "./pages/variable/Common";
 import UserMessageScreen from "./pages/userMessage/UserMessageScreen";
 import ModifyPasswordScreen from "./pages/userMessage/ModifyPasswordScreen";
 import FavoriteScreen from "./pages/favorite/FavoriteScreen";
@@ -30,6 +30,7 @@ import HistoryScreen from "./pages/history/HistoryScreen";
 import PlayScreen from "./pages/play/PlayScreen";
 import RecordScreen from "./pages/create/RecordScreen";
 import CommentScreen from "./pages/comment/CommentScreen";
+import AllScreen from "./pages/all/AllScreen";
 
 /*
 const HomeStack=createStackNavigator(
@@ -69,10 +70,10 @@ const TopTabNavigator=createMaterialTopTabNavigator(
                 title:'我的',
             }
         },
-        Recommend: {
-            screen:RecommendScreen,
+        All: {
+            screen:AllScreen,
             navigationOptions:{
-                title:'推荐'
+                title:'全部'
             }
         },
         /*
@@ -112,9 +113,10 @@ const MainStack=createStackNavigator(
         MyBook:MyBookScreen,
         Favorite:FavoriteScreen,
         History:HistoryScreen,
+        Recommend:RecommendScreen,
     },
     {
-        headerMode:'none'
+        headerMode:'none',
     }
 )
 
@@ -246,7 +248,6 @@ const AppStack=createStackNavigator(
                 });
                 return {opacity, transform: [{translateY}]};
             },
-
         })
     }
 )

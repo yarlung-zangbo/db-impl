@@ -2,7 +2,9 @@ package yuesheng.personal.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import yuesheng.personal.Service.ListenService;
 import yuesheng.personal.Service.SoundbookService;
+import yuesheng.personal.Service.TextAudioService;
 import yuesheng.personal.Service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,12 @@ public class PersonalController {
 
     @Autowired
     private SoundbookService soundbookService;
+
+    @Autowired
+    private ListenService listenService;
+
+    @Autowired
+    private TextAudioService textAudioService;
 
     @GetMapping("/getSelfBooks")
     public Object getSelfBooks(String username){
@@ -66,4 +74,21 @@ public class PersonalController {
     public Object checkFavorite(String username, int bookid){
         return userService.checkFavorite(bookid, username);
     }
+
+    @GetMapping("/recentListen")
+    public Object recentListen(String username){
+        return userService.getRecentListen(username);
+    }
+
+
+    @PostMapping("/listen")
+    public Object listen(String username, int bookid){
+        return listenService.listen(username, bookid);
+    }
+
+    @GetMapping("/getTextAudio")
+    public Object getTextAudio(int bookid){
+        return textAudioService.getTextAudio(bookid);
+    }
+
 }

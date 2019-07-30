@@ -13,9 +13,16 @@ import {
 } from 'react-navigation';
 import UserComponent from './components/UserComponent'
 import Entypo from 'react-native-vector-icons/Entypo';
-import {themeColor, loginServer} from "../variable/Commen"
+import {themeColor, loginServer, user} from "../variable/Common"
 
 export default class SettingScreen extends Component<Props> {
+
+    constructor(props){
+        super(props);
+        this.state=({
+            user: user,
+        })
+    }
 
     logout(){
         let uri=loginServer+"logout";
@@ -30,6 +37,18 @@ export default class SettingScreen extends Component<Props> {
         })
     }
 
+    componentDidMount(): void {
+        fetch(loginServer+"userMessage",{
+            method:"GET",
+            credentials: 'include'
+        }).then((res)=>res.json()
+        ).then((resJson)=>{
+            this.setState({
+                user: resJson.values
+            })
+        })
+    }
+
     render() {
         return (
             <View  style={styles.container}>
@@ -37,9 +56,9 @@ export default class SettingScreen extends Component<Props> {
                     <TouchableOpacity style={{flex:5}} onPress={()=>{
                         this.props.navigation.navigate(
                             "UserMessage",
-                            {user: this.refs.user.getUser()})
+                            {user: this.state.user})
                     }}>
-                        <UserComponent ref={"user"}/>
+                        <UserComponent user={this.state.user}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={
                         ()=>{this.props.navigation.dispatch(DrawerActions.closeDrawer())}}

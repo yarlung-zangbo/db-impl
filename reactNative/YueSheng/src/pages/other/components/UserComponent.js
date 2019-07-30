@@ -9,36 +9,11 @@
 import React, {Component} from 'react';
 import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {DrawerActions} from "react-navigation";
-import {loginServer, themeColor, user, userMessage} from '../../variable/Commen'
+import {loginServer, themeColor, user, userMessage} from '../../variable/Common'
 import {BoxShadow} from "react-native-shadow";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class UserComponent extends Component<Props> {
-
-    constructor(props){
-        super(props);
-        this.state=({
-            user:{},
-        })
-    }
-
-    getUser(){
-        return this.state.user;
-    }
-
-    componentDidMount(): void {
-        fetch(loginServer+"userMessage",{
-            method:"GET",
-            credentials: 'include'
-        }).then((res)=>res.json()
-        ).then((resJson)=>{
-            this.setState({
-                user: resJson.values
-            })
-            console.log(user);
-        })
-    }
-
     render() {
         return (
                 <View style={styles.userView}>
@@ -50,7 +25,7 @@ export default class UserComponent extends Component<Props> {
                     <View style={styles.msgIcon}>
                         <View style={{flexDirection: 'row'}}>
                             <Text style={{fontSize:16}}>
-                                {this.state.user.name==='undefined'?this.state.user.username:this.state.user.name}
+                                {this.props.user.name==='undefined'?this.props.user.username:this.props.user.name}
                             </Text>
                         </View>
                     </View>
