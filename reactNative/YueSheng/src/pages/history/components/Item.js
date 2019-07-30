@@ -10,11 +10,24 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button, Dimensions, Image, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {themeColor} from "../../variable/Commen";
+import {themeColor} from "../../variable/Common";
+import {NavigationActions} from "react-navigation";
 export default class Item extends Component<Props> {
+
+    setParamsAction = NavigationActions.setParams({
+        params: {
+            book:this.props.listen.soundbook,
+            newPlay:true,
+        },
+        key: 'BottomTab',
+    });
+
     render() {
         return (
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity onPress={()=>{
+                this.props.navigation.dispatch(this.setParamsAction);
+            }}
+                style={styles.container}>
                 <View style={styles.item}>
                     <View style={{flex:1}}>
                         <Text style={{fontSize:16, color: "#000"}}>

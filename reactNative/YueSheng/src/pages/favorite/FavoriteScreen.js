@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
-import {themeColor, height,width, personalServer} from "../variable/Commen";
+import {themeColor, height,width, personalServer} from "../variable/Common";
 import Item from './components/Item'
 export default class MyBookScreen extends Component<Props> {
     constructor(props){
@@ -87,11 +87,18 @@ export default class MyBookScreen extends Component<Props> {
                     style={{width:width,height:height-100}}
                     refreshing={false}
                     initialNumToRender={8}
+                    keyExtractor={(item, index) => index}
                     onRefresh={()=>{
                         this.updateFavorite();
                     }}
-                    renderItem={({item}) => <Item book={item} unFavorite={this.unFavorite.bind(this)}/>}
+                    renderItem={({item}) => <Item book={item}
+                                                  navigation={this.props.navigation}
+                                                  unFavorite={this.unFavorite.bind(this)}/>}
                     ListFooterComponent={<View style={{height:100}}></View>}
+                    ListEmptyComponent={
+                        <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+                            <Text>还没有自己的收藏 ^=^</Text>
+                        </View>}
                 />
             </View>
         );

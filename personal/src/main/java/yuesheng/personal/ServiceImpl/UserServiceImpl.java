@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yuesheng.personal.Dao.SoundbookDao;
 import yuesheng.personal.Dao.UserDao;
+import yuesheng.personal.Entity.Listen;
 import yuesheng.personal.Entity.Soundbook;
 import yuesheng.personal.Entity.User;
 import yuesheng.personal.Service.UserService;
@@ -107,5 +108,13 @@ public class UserServiceImpl implements UserService {
         return PackTool.pack("fail", false);
     }
 
-
+    @Override
+    public Object getRecentListen(String username) {
+        User user=userDao.findByUsername(username);
+        List<Listen> listens=user.getListenRecord();
+        if(listens.isEmpty()){
+            return PackTool.pack("fail", "no listen record");
+        }
+        return PackTool.pack("ok", listens.get(0));
+    }
 }

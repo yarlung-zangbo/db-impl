@@ -7,15 +7,29 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, Dimensions, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Alert, Dimensions, Image, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {themeColor} from "../../variable/Commen";
+import {themeColor} from "../../variable/Common";
+import { NavigationActions } from 'react-navigation';
+import Sound from "react-native-sound";
 export default class Item extends Component<Props> {
+
+    setParamsAction = NavigationActions.setParams({
+        params: {
+            book:this.props.book,
+            newPlay:true,
+        },
+        key: 'BottomTab',
+    });
+
     render() {
         return (
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity
+                onPress={()=>{
+                    this.props.navigation.dispatch(this.setParamsAction);
+                }}
+                style={styles.container}>
                 <View style={styles.item}>
                     <View style={{flex:1}}>
                         <Text style={{fontSize:15, color: "#000"}}>

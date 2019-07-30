@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import EvilIcons from  'react-native-vector-icons/EvilIcons';
-import {height, loginServer, personalServer, shareServer, themeColor, width} from "../../variable/Commen";
+import {height, loginServer, personalServer, shareServer, themeColor, width} from "../../variable/Common";
 import Item from "./Item";
 
 export default class CommentModel extends Component<Props> {
@@ -18,7 +18,6 @@ export default class CommentModel extends Component<Props> {
         super(props);
         this.state=({
             modalVisible: false,
-            bookid: 0,
             comments:[],
             content:"",
             inputHeight: 40,
@@ -46,11 +45,11 @@ export default class CommentModel extends Component<Props> {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded'},
-            body: 'username=zxz&bookid='+this.state.bookid+"&content="+this.state.content,
+            body: 'username='+this.props.username+'&bookid='+this.props.bookid+"&content="+this.state.content,
         }).then((res)=>res.json()
         ).then((resJson)=>{
             this.refs.input.clear();
-            this.getComments(this.state.bookid);
+            this.getComments(this.props.bookid);
             console.log(resJson);
         });
     }
@@ -74,11 +73,15 @@ export default class CommentModel extends Component<Props> {
                             refreshing={false}
                             initialNumToRender={8}
                             onRefresh={()=>{
-                                this.getComments(this.state.bookid);
+                                this.getComments(this.props.bookid);
                             }}
                             keyExtractor={this._keyExtractor}
                             renderItem={({item}) => <Item comment={item} />}
                             ListFooterComponent={<View style={{height:20}}></View>}
+                            ListEmptyComponent={
+                                <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+                                    <Text>还没有评论 ^=^ </Text>
+                                </View>}
                         />
                     </View>
                     <View style={styles.inputView}>

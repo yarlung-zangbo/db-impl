@@ -8,8 +8,7 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button, Dimensions, Image, TouchableOpacity} from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {themeColor} from "../../variable/Commen";
+import {themeColor} from "../../variable/Common";
 export default class Item extends Component<Props> {
     render() {
         return (

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, StyleSheet, Alert, TouchableOpacity, View} from "react-native";
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {themeColor, shareServer, personalServer} from "../../variable/Commen";
+import {themeColor, shareServer, personalServer} from "../../variable/Common";
 
 export default class GenderModal extends Component {
     constructor(props){

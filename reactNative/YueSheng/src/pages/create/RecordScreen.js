@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {themeColor, height,width, personalServer} from "../variable/Commen";
+import {themeColor, height,width, personalServer} from "../variable/Common";
 import TapeComponent from './components/TapeComponent'
 
 export default class RecordScreen extends Component<Props> {

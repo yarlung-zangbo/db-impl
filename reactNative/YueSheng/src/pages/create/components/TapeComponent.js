@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {themeColor, width, height} from "../../variable/Commen";
+import {themeColor, width, height} from "../../variable/Common";
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 

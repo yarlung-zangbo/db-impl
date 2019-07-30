@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native';
-import {themeColor, height, width, loginServer} from "../variable/Commen";
+import {themeColor, height, width, loginServer} from "../variable/Common";
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 

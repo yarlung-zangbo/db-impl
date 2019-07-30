@@ -18,7 +18,8 @@ import {
   TextInput,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {themeColor, image, width, loginServer} from '../variable/Commen';
+import {themeColor, image, width, loginServer, personalServer, user} from '../variable/Common';
+import {NavigationActions} from "react-navigation";
 export default class LoginScreen extends Component<Props> {
   constructor (props) {
     super (props);
@@ -27,7 +28,7 @@ export default class LoginScreen extends Component<Props> {
       password: '',
       message: ' ',
       isLogin: 0,
-      user: '',
+      user: {},
     };
   }
 
@@ -43,10 +44,7 @@ export default class LoginScreen extends Component<Props> {
         Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: 'username=' +
-        this.state.username +
-        '&password=' +
-        this.state.password,
+      body: 'username=' + this.state.username + '&password=' + this.state.password,
     })
       .then (res => res.json ())
       .then (resJson => {
@@ -55,7 +53,7 @@ export default class LoginScreen extends Component<Props> {
           this.setState ({
             message: ' ',
           });
-          this.props.navigation.navigate ('Home');
+          this.toHome(resJson.values);
         } else {
           this.setState ({
             message: resJson.values,
@@ -67,6 +65,23 @@ export default class LoginScreen extends Component<Props> {
           message: 'link error...',
         });
       });
+  }
+
+  toHome(username){
+    fetch(personalServer+"recentListen?username="+username)
+        .then((res)=>res.json()).then((resJson)=>{
+      let book=resJson.status=="ok"?resJson.values.soundbook:undefined;
+      this.props.navigation.navigate (
+          'BottomTab',
+          {
+            book:book,
+            username:username,
+            playing: false,
+            newPlay:false,
+            whoosh: undefined,
+            loading: false,
+          });
+    })
   }
 
   simpleLogin () {
@@ -85,12 +100,7 @@ export default class LoginScreen extends Component<Props> {
           this.setState ({
             message: ' ',
           });
-          fetch (loginServer + 'userMessage')
-            .then (res => res.json ())
-            .then (resJson => {
-              console.log (resJson);
-            });
-          this.props.navigation.navigate ('Home');
+          this.toHome(resJson.values);
         } else {
           this.setState ({
             message: 'please login',
@@ -135,7 +145,7 @@ export default class LoginScreen extends Component<Props> {
                   onChangeText={username => {
                     this.setState ({
                       username: username,
-                      message: this.state.user,
+                      message: ' ',
                     });
                   }}
                 />
@@ -150,7 +160,7 @@ export default class LoginScreen extends Component<Props> {
                   onChangeText={password => {
                     this.setState ({
                       password: password,
-                      message: this.state.user,
+                      message: ' ',
                     });
                   }}
                 />

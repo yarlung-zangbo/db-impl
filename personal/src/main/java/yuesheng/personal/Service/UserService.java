@@ -15,4 +15,5 @@ public interface UserService {
     Object favorite(String username, int bookid);
     Object unFavorite(String username, int bookid);
     Object checkFavorite(int bookid, String username);
+    Object getRecentListen(String username);
 }

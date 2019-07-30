@@ -17,6 +17,6 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-        response.getWriter().write("{\"status\": \"ok\"}");
+        response.getWriter().write("{\"status\": \"ok\",  \"values\": \"" +request.getParameter("username")+"\"}");
     }
 }

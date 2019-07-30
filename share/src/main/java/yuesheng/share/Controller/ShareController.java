@@ -65,5 +65,4 @@ public class ShareController {
     public Object getPersonalComment(String username){
         return userService.getComments(username);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.zxz.se.yuesheng.Controller;
 
+import com.zxz.se.yuesheng.Entity.Sound;
 import com.zxz.se.yuesheng.Entity.User;
 import com.zxz.se.yuesheng.Service.SoundService;
 import com.zxz.se.yuesheng.Service.UserService;
@@ -23,6 +24,12 @@ public class UserController {
 
     @Autowired
     private SoundService soundService;
+
+
+    @GetMapping(value="/getSound")
+    public Object getSound(String name){
+        return soundService.findSound(name).getContent();
+    }
 
     /* Test */
     @CrossOrigin
