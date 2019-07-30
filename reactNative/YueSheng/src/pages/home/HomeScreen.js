@@ -43,7 +43,8 @@ export default class HomeScreen extends Component<Props> {
                 </TouchableOpacity>
                 <HomeService navigation={this.props.navigation} username={this.state.user.username}/>
                 <TouchableOpacity style={styles.recommendView} onPress={()=>{
-                    this.props.navigation.navigate("Recommend");
+                    this.props.navigation.navigate("Recommend",
+                        {username:this.state.user.username});
                 }}>
                     <View style={{flexDirection:'row', }}>
                         <Image style={styles.headerIcon}

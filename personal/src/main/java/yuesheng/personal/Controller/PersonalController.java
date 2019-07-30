@@ -91,4 +91,9 @@ public class PersonalController {
         return textAudioService.getTextAudio(bookid);
     }
 
+    @PostMapping("/share")
+    public Object share(String username, int bookid){
+        return soundbookService.share(username, bookid);
+    }
+
 }

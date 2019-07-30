@@ -29,7 +29,7 @@ export default class Item extends Component<Props> {
             }}
                 style={styles.container}>
                 <View style={styles.item}>
-                    <View style={{flex:1}}>
+                    <View style={{}}>
                         <Text style={{fontSize:16, color: "#000"}}>
                             {this.props.listen.soundbook.name}
                         </Text>
@@ -37,6 +37,9 @@ export default class Item extends Component<Props> {
                             {this.props.listen.soundbook.creater.name}
                         </Text>
                     </View>
+                    <Text style={{color: "#bbb", fontSize:10}}>
+                        {this.props.listen.time}
+                    </Text>
                     <TouchableOpacity >
                         <AntDesign name={"delete"} style={{padding:10, color:themeColor}}/>
                     </TouchableOpacity>
@@ -57,6 +60,7 @@ const styles = StyleSheet.create({
         borderBottomColor:"#efefef",
         borderBottomWidth:1,
         alignItems:'center',
+        justifyContent:'space-between',
         flexDirection:'row',
         paddingLeft:5,
         paddingRight:5,

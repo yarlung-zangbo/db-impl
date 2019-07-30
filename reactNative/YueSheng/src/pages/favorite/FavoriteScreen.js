@@ -21,7 +21,7 @@ export default class MyBookScreen extends Component<Props> {
     }
 
     componentDidMount(): void {
-        let uri=personalServer+"getFavorite?username="+'zxz';
+        let uri=personalServer+"getFavorite?username="+this.pickUsername();
         fetch(uri).then((res)=>res.json()).then((resJson)=>{
             console.log(resJson);
             this.setState({
@@ -31,7 +31,7 @@ export default class MyBookScreen extends Component<Props> {
     }
 
     updateFavorite(){
-        let uri=personalServer+"getFavorite?username="+'zxz';
+        let uri=personalServer+"getFavorite?username="+this.pickUsername();
         fetch(uri).then((res)=>res.json()).then((resJson)=>{
             console.log(resJson);
             this.setState({
@@ -48,20 +48,24 @@ export default class MyBookScreen extends Component<Props> {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded'},
-            body: 'username='+'zxz'+'&bookid='+value
+            body: 'username='+this.pickUsername()+'&bookid='+value
         }).then((res)=>{
             this.updateFavorite();
         })
     }
 
     searchBook(value){
-        let uri=personalServer+"findFavorite?username=zxz&name="+value;
+        let uri=personalServer+"findFavorite?username="+this.pickUsername()+"&name="+value;
         fetch(uri).then((res)=>res.json()
         ).then((resJson)=>{
             this.setState({
                 favorite:resJson.values
             })
         });
+    }
+
+    pickUsername(){
+        return this.props.navigation.state.params.username;
     }
 
     render() {
@@ -87,7 +91,7 @@ export default class MyBookScreen extends Component<Props> {
                     style={{width:width,height:height-100}}
                     refreshing={false}
                     initialNumToRender={8}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                     onRefresh={()=>{
                         this.updateFavorite();
                     }}
@@ -98,10 +102,10 @@ export default class MyBookScreen extends Component<Props> {
                     ListEmptyComponent={
                         <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
                             <Text>还没有自己的收藏 ^=^</Text>
-                        </View>}
-                />
+                        </View>}/>
             </View>
         );
+
     }
 }
 

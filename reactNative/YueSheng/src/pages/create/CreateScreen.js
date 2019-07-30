@@ -7,12 +7,13 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Alert, TouchableOpacity, ImageBackground} from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {themeColor, height,width, personalServer} from "../variable/Common";
 
+import NameModal from './components/NameModal'
 
 export default class CreateScreen extends Component<Props> {
 
@@ -20,7 +21,7 @@ export default class CreateScreen extends Component<Props> {
         super(props);
         this.state=({
             message:" ",
-
+            text: undefined,
         })
     }
 
@@ -31,7 +32,8 @@ export default class CreateScreen extends Component<Props> {
             });
 
             this.setState({
-                message: res.name
+                message: res.name,
+                text:res,
             })
 
             console.log(
@@ -40,14 +42,30 @@ export default class CreateScreen extends Component<Props> {
                 "NAME"+res.name,
                 "SIZE"+res.size
             )
+        } catch (err) {
+            if (DocumentPicker.isCancel(err)) {
+                console.log("cancel");
+            } else {
+                throw err;
+            }
+        }
+    }
 
+    willCreate(){
+        this.refs.name.setModalVisible(true);
+    }
+
+    create(name){
+        if(this.state.text!=undefined){
             let formData=new FormData();
             let file={
-                uri: res.uri,
+                uri: this.state.text.uri,
                 type: 'multipart/form-data',
-                name: res.name
+                name: this.state.text.name
             };
+            console.log(file);
             formData.append("file", file);
+            formData.append("name", name);
             fetch("http://192.168.43.124:8086/yuesheng/upload", {
                 method:'POST',
                 headers:{
@@ -59,27 +77,24 @@ export default class CreateScreen extends Component<Props> {
             }).catch((error)=>{
                 console.log(error);
             })
-        } catch (err) {
-            if (DocumentPicker.isCancel(err)) {
-                console.log("cancel");
-            } else {
-                throw err;
-            }
         }
     }
 
     render() {
         return (
+            <ImageBackground
+                source={require ('YueSheng/src/image/cb.jpg')}
+                style={{width: width, height: height}}>
             <View style={styles.container}>
-                <View  style={styles.return}>
-                    <TouchableOpacity onPress={()=>{this.props.navigation.goBack(null);}}>
-                        <Entypo name={"chevron-thin-left"}
-                                style={{fontSize:20, paddingLeft:10,color:"#fff"}}/>
-                    </TouchableOpacity>
-                    <Text style={styles.title}>制作有声书</Text>
-                </View>
+                <TouchableOpacity onPress={() => {
+                    this.props.navigation.goBack(null)
+                }}
+                                  style={styles.returnView}>
+                    <Entypo style={styles.returnIcon} name={"chevron-thin-down"}/>
+                </TouchableOpacity>
+                <NameModal ref={"name"} create={this.create.bind(this)}/>
                 <View style={{marginTop:height*0.2, alignItems:'center'}}>
-                    <Text style={{color:"#e6e6e6"}}>上传文本文件，制作有声书</Text>
+                    <Text style={{color:"#aaa"}}>上传文本文件，制作有声书</Text>
                     <View style={styles.pickView}>
                         <TouchableOpacity onPress={()=>{this.pick();}}>
                             <AntDesign name={"addfile"}
@@ -88,12 +103,14 @@ export default class CreateScreen extends Component<Props> {
                         <Text style={{marginTop:5}}>{this.state.message}</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.create}>
+                <TouchableOpacity style={styles.create} onPress={()=>{
+                    this.willCreate();}}>
                     <Text style={{color:"#fff"}}>
                         制作
                     </Text>
                 </TouchableOpacity>
             </View>
+            </ImageBackground>
         );
     }
 }
@@ -102,6 +119,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems:'center',
+        backgroundColor:"rgba(255,255,255, 0.85)"
     },
     pickView:{
         marginTop:10,
@@ -114,19 +132,23 @@ const styles = StyleSheet.create({
         borderColor:themeColor,
         borderRadius:5,
     },
-    return: {
-        backgroundColor:themeColor,
-        width:width,
-        height:50,
-        alignItems:'center',
-        flexDirection:'row',
+    returnView: {
+        width: width,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomLeftRadius: 50,
+        borderBottomRightRadius: 50,
+        borderBottomWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderColor: '#e0e0e0',
+        backgroundColor:"#fff",
     },
-    title:{
+    returnIcon: {
+        padding: 12,
+        color: themeColor,
         fontSize: 16,
-        flex:1,
-        textAlign:'center',
-        color:"#fff",
-        paddingRight:30,
     },
     create:{
         backgroundColor: themeColor,

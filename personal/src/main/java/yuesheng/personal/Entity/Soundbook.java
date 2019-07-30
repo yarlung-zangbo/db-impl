@@ -8,8 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="soundbook", schema="yuesheng", catalog="")
-@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler",
-        "releasetime", "disabled"})
+@JsonIgnoreProperties(value={"handler", "hibernateLazyInitializer", "fieldHandler", "disabled"})
 
 public class Soundbook {
     private int bookid;

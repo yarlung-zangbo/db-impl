@@ -19,7 +19,7 @@ export default class NameModal extends Component {
     render() {
         return (
             <Modal
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 visible={this.state.modalVisible}
             >

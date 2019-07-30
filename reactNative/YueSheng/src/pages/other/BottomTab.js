@@ -12,7 +12,7 @@ import {BoxShadow} from 'react-native-shadow';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {NavigationActions} from "react-navigation";
-import {setLoaded, setLoading, setPause, setPlaying,} from "../variable/Common";
+import {personalServer, setLoaded, setLoading, setPause, setPlaying,} from "../variable/Common";
 import Sound from "react-native-sound";
 
 
@@ -65,6 +65,21 @@ export default class BottomTab extends Component<Props> {
         }, 500);
     }
 
+    recordListen(){
+        let uri=personalServer+"listen";
+        fetch(uri, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'username=' + this.pickParams().username + '&bookid=' + this.pickParams().book.bookid
+        }).then((res)=>{
+            console.log(res);
+        })
+    }
+
     getSound() {
         /*
         let uri=personalServer+"getTextAudio?bookid="+this.pickParams().book.bookid;
@@ -72,7 +87,8 @@ export default class BottomTab extends Component<Props> {
         */
         this.setLoading();
         this.setPlay();
-        const whoosh = new Sound("http://zjyd.sc.chinaz.net/Files/DownLoad/sound1/201905/11572.wav", '', (err) => {
+        this.recordListen();
+        const whoosh = new Sound('http://192.168.43.124:8086/yuesheng/getSound?name=风铃', '', (err) => {
             if (err) {
                 return console.log(err);
             }

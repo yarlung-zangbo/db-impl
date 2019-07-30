@@ -75,7 +75,7 @@ export default class CommentModel extends Component<Props> {
                             onRefresh={()=>{
                                 this.getComments(this.props.bookid);
                             }}
-                            keyExtractor={this._keyExtractor}
+                            keyExtractor={(item, index) => index.toString()}
                             renderItem={({item}) => <Item comment={item} />}
                             ListFooterComponent={<View style={{height:20}}></View>}
                             ListEmptyComponent={

@@ -1,5 +1,6 @@
 package yuesheng.share.ServiceImpl;
 
+import org.hibernate.annotations.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yuesheng.share.Dao.SoundbookDao;
@@ -8,6 +9,7 @@ import yuesheng.share.Entity.Soundbook;
 import yuesheng.share.Service.SoundbookService;
 import yuesheng.share.Tool.CheckBook;
 import yuesheng.share.Tool.PackTool;
+import yuesheng.share.Tool.TimeTool;
 
 import java.util.List;
 
@@ -37,8 +39,4 @@ public class SoundbookServiceImpl implements SoundbookService {
         return PackTool.pack("ok", book.getCommentList());
     }
 
-    @Override
-    public Object share(String username, int bookid) {
-        return null;
-    }
 }

@@ -25,7 +25,7 @@ export default class MyBookScreen extends Component<Props> {
     }
 
     componentDidMount(): void {
-        let uri=personalServer+"getSelfBooks?username="+'zxz';
+        let uri=personalServer+"getSelfBooks?username="+this.pickUsername();
         fetch(uri).then((res)=>res.json()).then((resJson)=>{
                 console.log(resJson);
                 this.setState({
@@ -47,7 +47,7 @@ export default class MyBookScreen extends Component<Props> {
     }
 
     updateBook(){
-        let uri=personalServer+"getSelfBooks?username="+'zxz';
+        let uri=personalServer+"getSelfBooks?username="+this.pickUsername();
         fetch(uri).then((res)=>res.json()).then((resJson)=>{
             console.log(resJson);
             this.setState({
@@ -69,7 +69,7 @@ export default class MyBookScreen extends Component<Props> {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded'},
-                body: 'username='+'zxz'+'&bookid='+this.state.toModifyBookId+'&name='+value,
+                body: 'username='+this.pickUsername()+'&bookid='+this.state.toModifyBookId+'&name='+value,
             }).then((res)=>{
                 this.updateBook();
             })
@@ -103,7 +103,7 @@ export default class MyBookScreen extends Component<Props> {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded'},
-                body: 'username='+'zxz'+'&bookid='+this.state.toDeleteBookId
+                body: 'username='+this.pickUsername()+'&bookid='+this.state.toDeleteBookId
             }).then((res)=>{
                 this.updateBook();
             })
@@ -111,13 +111,17 @@ export default class MyBookScreen extends Component<Props> {
     }
 
     searchBook(value){
-        let uri=personalServer+"findSelfBook?username=zxz&name="+value;
+        let uri=personalServer+"findSelfBook?username="+this.pickUsername()+"&name="+value;
         fetch(uri).then((res)=>res.json()
         ).then((resJson)=>{
             this.setState({
                 selfBooks:resJson.values
             })
         });
+    }
+
+    pickUsername(){
+        return this.props.navigation.state.params.username;
     }
 
     render() {
@@ -150,7 +154,7 @@ export default class MyBookScreen extends Component<Props> {
                         onRefresh={()=>{
                             this.updateBook();
                         }}
-                        keyExtractor={(item, index) => index}
+                        keyExtractor={(item, index) => index.toString()}
                         renderItem={({item}) => <Item book={item}
                                                       navigation={this.props.navigation}
                                                       deleteBook={this.deleteBook.bind(this)}

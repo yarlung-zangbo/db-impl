@@ -9,4 +9,6 @@ import java.util.List;
 public interface SoundbookService {
     public Object modifyName(String username, int bookid, String name);
     public Object deleteBook(String username, int bookid);
+    public Object share(String username, int bookid);
+
 }

@@ -85,7 +85,7 @@ public class UserController {
     @ResponseBody
     public Object upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 
-        System.out.println("upload file");
+        System.out.println(request.getParameter("name"));
         if (!file.isEmpty()) {
             try {
                 String ret="name: "+file.getOriginalFilename();
@@ -104,6 +104,7 @@ public class UserController {
         } else {
             return "{\"status\": \"fail\", \"values\": \"empty file!\"}";
         }
+
     }
 
     /* Test */

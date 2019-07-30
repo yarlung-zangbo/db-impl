@@ -24,7 +24,7 @@ export default class RecommendScreen extends Component<Props> {
     }
 
     componentDidMount(): void {
-        let uri=recommendServer+"getRecList?username=Pool1960";
+        let uri=recommendServer+"getRecList?username="+this.pickUsername();
         fetch(uri).then((res)=>res.json()).then((resJson)=>{
             console.log(resJson);
             this.setState({
@@ -33,12 +33,15 @@ export default class RecommendScreen extends Component<Props> {
         });
     }
 
+    pickUsername(){
+        return this.props.navigation.state.params.username;
+    }
 
     render() {
         return (
             <ImageBackground
                 source={require ('YueSheng/src/image/rb.jpg')}
-                style={{width: width, height: height}}>
+                style={{width: width, height: width*530/469}}>
                     <View style={styles.container}>
                         <View  style={styles.return}>
                             <TouchableOpacity onPress={()=>{this.props.navigation.goBack(null);}}>
@@ -59,7 +62,7 @@ export default class RecommendScreen extends Component<Props> {
                             style={{width:width}}
                             refreshing={false}
                             initialNumToRender={8}
-                            keyExtractor={(item, index) => index}
+                            keyExtractor={(item, index) => index.toString()}
                             renderItem={({item}) => <Item book={item}
                                                           navigation={this.props.navigation}/>}
                             ListFooterComponent={<View style={{height: 100}}></View>}
@@ -78,7 +81,7 @@ export default class RecommendScreen extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.75)',
+        backgroundColor: 'rgba(0,0,0, 0.75)',
     },
 
     return: {

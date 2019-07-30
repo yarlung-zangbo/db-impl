@@ -7,10 +7,11 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Button, TouchableOpacity, ImageBackground, Alert} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {themeColor, height,width, personalServer} from "../variable/Common";
 import TapeComponent from './components/TapeComponent'
+import NameModal from './components/NameModal'
 
 export default class RecordScreen extends Component<Props> {
 
@@ -21,20 +22,32 @@ export default class RecordScreen extends Component<Props> {
         })
     }
 
+    willCreate(){
+        this.refs.name.setModalVisible(true);
+    }
+
+    create(name){
+        this.refs.tape.create(name);
+    }
+
     render() {
         return (
+            <ImageBackground
+                source={require ('YueSheng/src/image/cb.jpg')}
+                style={{width: width, height: height}}>
             <View style={styles.container}>
-                <View  style={styles.return}>
-                    <TouchableOpacity onPress={()=>{this.props.navigation.goBack(null);}}>
-                        <Entypo name={"chevron-thin-left"}
-                                style={{fontSize:20, paddingLeft:10,color:"#fff"}}/>
-                    </TouchableOpacity>
-                    <Text style={styles.title}>录制有声书</Text>
-                </View>
+                <TouchableOpacity onPress={() => {
+                    this.props.navigation.goBack(null)
+                }}
+                                  style={styles.returnView}>
+                    <Entypo style={styles.returnIcon} name={"chevron-thin-down"}/>
+                </TouchableOpacity>
+                <NameModal ref={"name"} create={this.create.bind(this)}/>
                 <View style={styles.recordView}>
-                    <TapeComponent ref={"tape"}/>
+                    <TapeComponent ref={"tape"} willCreate={this.willCreate.bind(this)}/>
                 </View>
             </View>
+            </ImageBackground>
         );
     }
 }
@@ -43,20 +56,21 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems:'center',
+        backgroundColor: "rgba(0,0,0,0.85)"
     },
-    return: {
-        backgroundColor:themeColor,
-        width:width,
-        height:50,
-        alignItems:'center',
-        flexDirection:'row',
+    returnView: {
+        width: width,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomLeftRadius: 50,
+        borderBottomRightRadius: 50,
+        backgroundColor:"#000000",
     },
-    title:{
+    returnIcon: {
+        padding: 12,
+        color: "#ddd",
         fontSize: 16,
-        flex:1,
-        textAlign:'center',
-        color:"#fff",
-        paddingRight:30,
     },
     recordView:{
     }

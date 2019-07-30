@@ -153,7 +153,7 @@ export default class PlayScreen extends Component<Props> {
         }
     }
 
-    createSoundbook(){
+    create(name){
         if(this.state.stop){
             try{
                 let formData=new FormData();
@@ -162,8 +162,8 @@ export default class PlayScreen extends Component<Props> {
                     type: 'multipart/form-data',
                     name: 'record.mp3',
                 };
-                console.log("uri: "+ file.uri);
                 formData.append("file", file);
+                formData.append("name", name);
                 fetch("http://192.168.43.124:8086/yuesheng/upload", {
                     method:'POST',
                     headers:{
@@ -216,7 +216,7 @@ export default class PlayScreen extends Component<Props> {
                 </View>
 
                 <TouchableOpacity style={styles.create} onPress={()=>{
-                    this.createSoundbook();
+                    this.props.willCreate();
                 }}>
                     <Text style={{color:"#fff"}}>
                         制作
@@ -229,7 +229,6 @@ export default class PlayScreen extends Component<Props> {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor:"rgba(0,0,0,0.95)",
         alignItems: 'center',
         width:width,
         flex:1,

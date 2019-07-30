@@ -21,13 +21,21 @@ export default class HistoryScreen extends Component<Props> {
     }
 
     componentDidMount(): void {
-        let uri=personalServer+"getListenRecord?username="+'zxz';
+        this.getHistory();
+    }
+
+    getHistory(){
+        let uri=personalServer+"getListenRecord?username="+this.pickUsername();
         fetch(uri).then((res)=>res.json()).then((resJson)=>{
             console.log(resJson);
             this.setState({
                 history:resJson.values
             });
         });
+    }
+
+    pickUsername(){
+        return this.props.navigation.state.params.username;
     }
 
     render() {
@@ -45,8 +53,9 @@ export default class HistoryScreen extends Component<Props> {
                     style={{width:width,height:height-100}}
                     refreshing={false}
                     initialNumToRender={8}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                     onRefresh={()=>{
+                        this.getHistory();
                     }}
                     renderItem={({item}) => <Item listen={item}
                                                   navigation={this.props.navigation}/>}

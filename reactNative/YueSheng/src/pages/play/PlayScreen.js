@@ -107,6 +107,21 @@ export default class PlayScreen extends Component<Props> {
         })
     }
 
+    recordListen(){
+        let uri=personalServer+"listen";
+        fetch(uri, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'username=' + this.pickParams().username + '&bookid=' + this.pickParams().book.bookid
+        }).then((res)=>{
+            console.log(res);
+        })
+    }
+
     getSound() {
 /*
         let uri=personalServer+"getTextAudio?bookid="+this.pickParams().book.bookid;
@@ -114,6 +129,7 @@ export default class PlayScreen extends Component<Props> {
 */
         this.setLoading();
         this.setPlaying();
+        this.recordListen();
         const whoosh = new Sound(this.state.audioPath, '', (err) => {
             if (err) {
                 return console.log(err)
@@ -220,8 +236,9 @@ export default class PlayScreen extends Component<Props> {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: 'username=' + this.pickParams().username + '&bookid=' + this.pickParams().book.bookid
-        }).then((res) => {
-            this.setState({favorite: true});
+        }).then((res) =>res.json()).then((resJson)=> {
+            if(resJson.status=='ok')
+                this.setState({favorite: true});
         })
     }
 

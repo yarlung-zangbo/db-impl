@@ -10,10 +10,22 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Alert, Dimensions, Image, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import {themeColor} from "../../variable/Common";
+import {personalServer, themeColor} from "../../variable/Common";
 import { NavigationActions } from 'react-navigation';
-import Sound from "react-native-sound";
 export default class Item extends Component<Props> {
+
+    constructor(props){
+        super(props);
+        this.state=({
+            release:false,
+        })
+    }
+
+    componentDidMount(): void {
+        this.setState({
+            release: this.props.book.releasetime!=undefined
+        })
+    }
 
     setParamsAction = NavigationActions.setParams({
         params: {
@@ -22,6 +34,20 @@ export default class Item extends Component<Props> {
         },
         key: 'BottomTab',
     });
+
+    share(){
+        let uri=personalServer+"share";
+        fetch(uri, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'username='+this.props.book.creater.username+'&bookid='+this.props.book.bookid
+        }).then((res)=>{
+            this.setState({release:!this.state.release})
+        })
+    }
 
     render() {
         return (
@@ -47,8 +73,9 @@ export default class Item extends Component<Props> {
                         this.props.deleteBook(this.props.book.bookid, this.props.book.name)}}>
                         <AntDesign name={"delete"} style={{padding:10, color:themeColor}}/>
                     </TouchableOpacity>
-                    <TouchableOpacity >
-                        <AntDesign name={"sharealt"} style={{padding:10, color:themeColor}}/>
+                    <TouchableOpacity onPress={()=>{this.share()}}>
+                        <AntDesign name={"sharealt"}
+                                   style={{padding:10, color:this.state.release?themeColor:"#bbb"}}/>
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>

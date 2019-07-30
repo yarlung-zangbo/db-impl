@@ -21,22 +21,22 @@ export default class HomeService extends Component<Props> {
                     <TouchableOpacity style={styles.iconView}
                                       onPress={()=>{
                                           this.props.navigation.navigate("MyBook",
-                                              {});
+                                              {username: this.props.username});
                                       }}>
                         <Fontisto style={styles.icon} name={"music-note"} />
                         <Text style={styles.iconTitle}>我的有声书</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.iconView}
                                       onPress={()=>{
-                                          this.props.navigation.navigate("Favorite");
-                                      }}>
+                                          this.props.navigation.navigate("Favorite",
+                                              {username: this.props.username});}}>
                         <AntDesign style={styles.icon} name={"hearto"} />
                         <Text style={styles.iconTitle}>我的收藏</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.iconView}
                                       onPress={()=>{
-                                          this.props.navigation.navigate("History");
-                                      }}>
+                                          this.props.navigation.navigate("History",
+                                              {username: this.props.username});}}>
                         <AntDesign style={styles.icon} name={"clockcircleo"} />
                         <Text style={styles.iconTitle}>最近收听</Text>
                     </TouchableOpacity>
@@ -44,21 +44,24 @@ export default class HomeService extends Component<Props> {
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.iconView}
                                       onPress={()=>{
-                                          this.props.navigation.navigate("Create");
+                                          this.props.navigation.navigate("Create",
+                                              {username: this.props.username});
                                       }}>
                         <Feather style={styles.icon} name={"book"} />
                         <Text style={styles.iconTitle}>制作有声书</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.iconView}
                                       onPress={()=>{
-                                          this.props.navigation.navigate("Record");
+                                          this.props.navigation.navigate("Record",
+                                              {username: this.props.username});
                                       }}>
                         <Feather name={"mic"} style={styles.icon} />
                         <Text style={styles.iconTitle}>录制有声书</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.iconView}
                                       onPress={()=>{
-                                          this.props.navigation.navigate("Comment");
+                                          this.props.navigation.navigate("Comment",
+                                              {username: this.props.username});
                                       }}>
                         <Fontisto style={styles.icon} name={"commenting"} />
                         <Text style={styles.iconTitle}>我的评论</Text>
