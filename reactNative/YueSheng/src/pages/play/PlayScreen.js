@@ -296,8 +296,7 @@ export default class PlayScreen extends Component<Props> {
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
                             if (!this.bookUndefined()) {
-                                this.refs.comment.getComments(this.pickParams().book.bookid);
-                                this.refs.comment.setModalVisible(true);
+                                this.refs.comment.getComments(this.pickParams().book.bookid)
                             }
                         }}>
                             <Octicons style={{color: '#ccc', fontSize: 18}} name={"comment"}/>

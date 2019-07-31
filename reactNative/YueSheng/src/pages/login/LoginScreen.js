@@ -70,7 +70,7 @@ export default class LoginScreen extends Component<Props> {
   toHome(username){
     fetch(personalServer+"recentListen?username="+username)
         .then((res)=>res.json()).then((resJson)=>{
-      let book=resJson.status=="ok"?resJson.values.soundbook:undefined;
+      let book=resJson.status=="ok"?resJson.values:undefined;
       this.props.navigation.navigate (
           'BottomTab',
           {

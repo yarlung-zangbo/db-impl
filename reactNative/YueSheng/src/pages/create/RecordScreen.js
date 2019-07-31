@@ -33,7 +33,7 @@ export default class RecordScreen extends Component<Props> {
     render() {
         return (
             <ImageBackground
-                source={require ('YueSheng/src/image/cb.jpg')}
+                source={require ('YueSheng/src/image/cb2.jpg')}
                 style={{width: width, height: height}}>
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => {

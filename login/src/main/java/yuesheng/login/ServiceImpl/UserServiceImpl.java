@@ -90,7 +90,6 @@ public class UserServiceImpl implements UserService {
     public Object activate(String username) {
         User user = userDao.findByUsername(username);
         if (user == null) return PackTool.pack("fail", username + " not exist");
-        if (user.getModifyemail() == null) return PackTool.pack("fail", user.getEmail());
         if (user.getRegistertime() == null) {
             user.setRegistertime(TimeTool.now());
             userDao.save(user);

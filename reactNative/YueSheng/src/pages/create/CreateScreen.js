@@ -83,7 +83,7 @@ export default class CreateScreen extends Component<Props> {
     render() {
         return (
             <ImageBackground
-                source={require ('YueSheng/src/image/cb.jpg')}
+                source={require ('YueSheng/src/image/cb1.jpg')}
                 style={{width: width, height: height}}>
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems:'center',
-        backgroundColor:"rgba(255,255,255, 0.85)"
+        backgroundColor:"rgba(255,255,255, 0.8)"
     },
     pickView:{
         marginTop:10,

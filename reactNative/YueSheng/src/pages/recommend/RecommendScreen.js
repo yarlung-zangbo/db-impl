@@ -41,7 +41,7 @@ export default class RecommendScreen extends Component<Props> {
         return (
             <ImageBackground
                 source={require ('YueSheng/src/image/rb.jpg')}
-                style={{width: width, height: width*530/469}}>
+                style={{width: width, height: width*340/500}}>
                     <View style={styles.container}>
                         <View  style={styles.return}>
                             <TouchableOpacity onPress={()=>{this.props.navigation.goBack(null);}}>

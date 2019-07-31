@@ -7,9 +7,9 @@
  */
 
 import React, {Component} from 'react';
-import {FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity,Alert, View} from 'react-native';
 import EvilIcons from  'react-native-vector-icons/EvilIcons';
-import {height, loginServer, personalServer, shareServer, themeColor, width} from "../../variable/Common";
+import {shareServer, themeColor, width} from "../../variable/Common";
 import Item from "./Item";
 
 export default class CommentModel extends Component<Props> {
@@ -24,8 +24,6 @@ export default class CommentModel extends Component<Props> {
         })
     }
 
-    _keyExtractor=(item, index)=>''+item.commentId
-
     setModalVisible(visible){
         this.setState({modalVisible:visible});
     }
@@ -33,7 +31,14 @@ export default class CommentModel extends Component<Props> {
     getComments(bookid){
         let uri=shareServer+"getComment?bookid="+bookid;
         fetch(uri).then((res)=>res.json()).then((resJson)=>{
-            this.setState({comments: resJson.values});
+            console.log(resJson);
+            if(resJson.status=='ok') {
+                this.setState({comments: resJson.values}, ()=>{
+                    this.setModalVisible(true);
+                });
+            }else{
+                Alert.alert("发布有声书，可以添加评论哦！")
+            }
         })
     }
 

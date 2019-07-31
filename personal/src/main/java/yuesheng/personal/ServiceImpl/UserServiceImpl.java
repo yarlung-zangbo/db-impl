@@ -73,9 +73,6 @@ public class UserServiceImpl implements UserService {
         if(book.getDisabled().compareTo(TimeTool.now())>0){
             return PackTool.pack("fail", "book disabled");
         }
-        if(book.getReleasetime()==null){
-            return PackTool.pack("fail", "book not release");
-        }
         List<Soundbook> favorite= user.getFavorite();
         for(Soundbook b:favorite){
             if(b.getBookid()==bookid)
@@ -113,8 +110,8 @@ public class UserServiceImpl implements UserService {
         User user=userDao.findByUsername(username);
         List<Listen> listens=user.getListenRecord();
         if(listens.isEmpty()){
-            return PackTool.pack("fail", "no listen record");
+            return PackTool.pack("ok", soundbookDao.findByBookid(1));
         }
-        return PackTool.pack("ok", listens.get(0));
+        return PackTool.pack("ok", listens.get(0).getSoundbook());
     }
 }
