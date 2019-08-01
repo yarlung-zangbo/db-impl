@@ -96,6 +96,7 @@ export default class MyBookScreen extends Component<Props> {
                         this.updateFavorite();
                     }}
                     renderItem={({item}) => <Item book={item}
+                                                  username={this.pickUsername()}
                                                   navigation={this.props.navigation}
                                                   unFavorite={this.unFavorite.bind(this)}/>}
                     ListFooterComponent={<View style={{height:100}}></View>}

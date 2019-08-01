@@ -41,7 +41,7 @@ public class User {
 
     @OneToMany(cascade={CascadeType.REMOVE},fetch=FetchType.LAZY,
             targetEntity = Soundbook.class,mappedBy = "creater")
-    @OrderBy("createTime DESC ")
+    @OrderBy("createtime DESC ")
     public List<Soundbook> getSelfBooks() {
         return selfBooks;
     }

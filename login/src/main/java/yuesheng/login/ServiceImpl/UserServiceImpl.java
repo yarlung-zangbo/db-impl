@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
         if (userDao.findByUsername(username) != null) {
             return PackTool.pack("fail", username + " has been registered");
         }
-        userDao.addUser(username, password, email);
+        userDao.addUser(username, username, password, email);
         String con = "<p>" + this.activateContent + " <br />" + "<a href='" + this.server + "activate?username=" + username + "'>activate</a></p>";
         mailService.setContent(con);
         mailService.setSubject(this.activateSubject);

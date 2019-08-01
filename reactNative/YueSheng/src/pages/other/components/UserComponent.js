@@ -25,7 +25,7 @@ export default class UserComponent extends Component<Props> {
                     <View style={styles.msgIcon}>
                         <View style={{flexDirection: 'row'}}>
                             <Text style={{fontSize:16}}>
-                                {this.props.user.name==='undefined'?this.props.user.username:this.props.user.name}
+                                {this.props.user.name}
                             </Text>
                         </View>
                     </View>

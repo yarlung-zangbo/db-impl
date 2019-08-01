@@ -118,7 +118,7 @@ export default class PlayScreen extends Component<Props> {
             },
             body: 'username=' + this.pickParams().username + '&bookid=' + this.pickParams().book.bookid
         }).then((res)=>{
-            console.log(res);
+            console.log(res.json());
         })
     }
 

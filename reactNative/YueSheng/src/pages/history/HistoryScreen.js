@@ -58,6 +58,7 @@ export default class HistoryScreen extends Component<Props> {
                         this.getHistory();
                     }}
                     renderItem={({item}) => <Item listen={item}
+                                                  username={this.pickUsername()}
                                                   navigation={this.props.navigation}/>}
                     ListFooterComponent={<View style={{height:100}}></View>}
                     ListEmptyComponent={

@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void addUser(String username, String password, String email) {
-        userRepository.insertUser(username, password, email);
+    public void addUser(String username, String name, String password, String email) {
+        userRepository.insertUser(username, name, password, email);
     }
 }

@@ -105,6 +105,7 @@ export default class MyBookScreen extends Component<Props> {
                     'Content-Type': 'application/x-www-form-urlencoded'},
                 body: 'username='+this.pickUsername()+'&bookid='+this.state.toDeleteBookId
             }).then((res)=>{
+                console.log(res);
                 this.updateBook();
             })
         }

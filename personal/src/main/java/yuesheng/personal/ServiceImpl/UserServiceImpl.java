@@ -73,6 +73,9 @@ public class UserServiceImpl implements UserService {
         if(book.getDisabled().compareTo(TimeTool.now())>0){
             return PackTool.pack("fail", "book disabled");
         }
+        if(book.getReleasetime()==null){
+            return PackTool.pack("fail", "book not release");
+        }
         List<Soundbook> favorite= user.getFavorite();
         for(Soundbook b:favorite){
             if(b.getBookid()==bookid)

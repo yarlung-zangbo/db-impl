@@ -9,6 +9,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     User findByUsername(String username);
 
     @Modifying
-    @Query(value = "insert user(username, password, email) values(?1, ?2, ?3)", nativeQuery = true)
-    void insertUser(String username, String passwrod, String email);
+    @Query(value = "insert user(username, name, password, email) values(?1, ?2, ?3, ?4)", nativeQuery = true)
+    void insertUser(String username, String name,  String passwrod, String email);
 }

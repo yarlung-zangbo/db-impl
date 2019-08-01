@@ -37,7 +37,7 @@ export default class CommentModel extends Component<Props> {
                     this.setModalVisible(true);
                 });
             }else{
-                Alert.alert("发布有声书，可以添加评论哦！")
+                Alert.alert(resJson.values)
             }
         })
     }

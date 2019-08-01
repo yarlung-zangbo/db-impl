@@ -7,5 +7,5 @@ public interface UserDao {
 
     User findByUsername(String username);
 
-    void addUser(String username, String password, String email);
+    void addUser(String username, String name, String password, String email);
 }

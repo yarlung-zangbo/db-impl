@@ -31,7 +31,7 @@ export default class UserMessageScreen extends Component<Props> {
         let user=this.props.navigation.state.params.user;
         this.setState({user:user});
         this.setState({
-            name:user.name==='undefined'?user.username:user.name,
+            name:user.name,
             gender:user.gender>1?"男":"女",
             email:user.email
         })

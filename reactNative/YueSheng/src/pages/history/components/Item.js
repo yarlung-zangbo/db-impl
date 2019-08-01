@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, Dimensions, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Button, Dimensions, Image, TouchableOpacity, Alert} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {themeColor} from "../../variable/Common";
@@ -25,7 +25,11 @@ export default class Item extends Component<Props> {
     render() {
         return (
             <TouchableOpacity onPress={()=>{
-                this.props.navigation.dispatch(this.setParamsAction);
+                if(this.props.listen.soundbook.releasetime!=null
+                    || this.props.listen.soundbook.creater.username==this.props.username)
+                    this.props.navigation.dispatch(this.setParamsAction);
+                else
+                    Alert.alert(this.props.listen.soundbook.name+": 没有被分享")
             }}
                 style={styles.container}>
                 <View style={styles.item}>
