@@ -29,7 +29,6 @@ export default class HomeScreen extends Component<Props> {
         ).then((res)=>res.json()).then((resJson)=>{
             this.setState({user: resJson.values})
         })
-
     }
 
     render() {

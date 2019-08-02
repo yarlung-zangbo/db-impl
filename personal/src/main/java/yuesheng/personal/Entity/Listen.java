@@ -12,11 +12,11 @@ import javax.persistence.*;
 @Table(name="listen", schema="yuesheng", catalog="")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "listenId"
+        property = "listenid"
 )
 @JsonIgnoreProperties(value={"listener"})
 public class Listen {
-    private int listenId;
+    private int listenid;
     private String time;
     private User listener;
     private Soundbook soundbook;
@@ -24,12 +24,12 @@ public class Listen {
     @Id
     @Column(name="listenid")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    public int getListenId() {
-        return listenId;
+    public int getListenid() {
+        return listenid;
     }
 
-    public void setListenId(int listenId) {
-        this.listenId = listenId;
+    public void setListenid(int listenid) {
+        this.listenid = listenid;
     }
 
     @Basic

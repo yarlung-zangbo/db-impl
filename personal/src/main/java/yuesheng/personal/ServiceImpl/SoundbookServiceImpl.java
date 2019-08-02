@@ -56,7 +56,7 @@ public class SoundbookServiceImpl implements SoundbookService {
             return PackTool.pack("fail", "have no this book");
         if(!book.getCreater().getUsername().equals(username))
             return PackTool.pack("fail", "this book isnot yours");
-        if(book.getDisabled().compareTo(TimeTool.now())>0)
+        if(book.getDisabled()!=null && book.getDisabled().compareTo(TimeTool.now())>0)
             return PackTool.pack("fail", "book disabled");
         if(book.getReleasetime()==null)
             book.setReleasetime(TimeTool.now());

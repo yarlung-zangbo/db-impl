@@ -86,6 +86,11 @@ public class PersonalController {
         return listenService.listen(username, bookid);
     }
 
+    @PostMapping("/deleteListen")
+    public Object deleteListen(int listenid, String username){
+        return listenService.deleteListen(listenid, username);
+    }
+
     @GetMapping("/getTextAudio")
     public Object getTextAudio(int bookid){
         return textAudioService.getTextAudio(bookid);

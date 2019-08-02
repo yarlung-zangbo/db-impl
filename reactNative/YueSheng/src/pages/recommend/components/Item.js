@@ -23,27 +23,31 @@ export default class Item extends Component<Props> {
     });
 
     render() {
-        return (
-            <TouchableOpacity onPress={()=>{
-                this.props.navigation.dispatch(this.setParamsAction);
-            }}
-                              style={styles.container}>
-                <View style={styles.item}>
-                    <View style={{}}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text style={{fontSize:14, color: "#000"}}>{this.props.book.name}</Text>
-                            <Text style={{width:40,color: themeColor, fontStyle: 'italic', fontSize:12}}>  {this.props.book.mark}</Text>
+            if(this.props.book==null){
+                return (<View></View>);
+            }else{
+                return(
+                    <TouchableOpacity onPress={()=>{
+                        this.props.navigation.dispatch(this.setParamsAction);
+                    }}
+                                      style={styles.container}>
+                        <View style={styles.item}>
+                            <View style={{}}>
+                                <View style={{flexDirection: 'row'}}>
+                                    <Text style={{fontSize:14, color: "#000"}}>{this.props.book.name}</Text>
+                                    <Text style={{width:40,color: themeColor, fontStyle: 'italic', fontSize:12}}>  {this.props.book.mark}</Text>
+                                </View>
+                                <Text style={{fontSize:11}}>
+                                    {this.props.book.creater.name}
+                                </Text>
+                            </View>
+                            <View>
+                                <Text style={{color: "#888", fontSize:10}}>release:{this.props.book.releasetime}</Text>
+                            </View>
                         </View>
-                        <Text style={{fontSize:11}}>
-                            {this.props.book.creater.name}
-                        </Text>
-                    </View>
-                    <View>
-                        <Text style={{color: "#888", fontSize:10}}>release:{this.props.book.releasetime}</Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
-        );
+                    </TouchableOpacity>
+                )
+            }
     }
 }
 

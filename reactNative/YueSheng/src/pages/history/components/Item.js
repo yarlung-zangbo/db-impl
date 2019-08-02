@@ -34,17 +34,17 @@ export default class Item extends Component<Props> {
                 style={styles.container}>
                 <View style={styles.item}>
                     <View style={{}}>
-                        <Text style={{fontSize:16, color: "#000"}}>
+                        <Text style={{fontSize:14, color: "#000"}}>
                             {this.props.listen.soundbook.name}
                         </Text>
-                        <Text>
+                        <Text style={{fontSize:11}}>
                             {this.props.listen.soundbook.creater.name}
                         </Text>
                     </View>
                     <Text style={{color: "#bbb", fontSize:10}}>
                         {this.props.listen.time}
                     </Text>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={()=>{this.props.deleteListen(this.props.listen.listenid)}}>
                         <AntDesign name={"delete"} style={{padding:10, color:themeColor}}/>
                     </TouchableOpacity>
                 </View>

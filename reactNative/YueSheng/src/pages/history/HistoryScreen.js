@@ -38,6 +38,21 @@ export default class HistoryScreen extends Component<Props> {
         return this.props.navigation.state.params.username;
     }
 
+    deleteListen(listenid){
+        let uri=personalServer+"deleteListen";
+        fetch(uri, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'username='+this.pickUsername()+'&listenid='+listenid
+        }).then((res)=>{
+            console.log(res);
+            this.getHistory();
+        })
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -58,6 +73,7 @@ export default class HistoryScreen extends Component<Props> {
                         this.getHistory();
                     }}
                     renderItem={({item}) => <Item listen={item}
+                                                  deleteListen={this.deleteListen.bind(this)}
                                                   username={this.pickUsername()}
                                                   navigation={this.props.navigation}/>}
                     ListFooterComponent={<View style={{height:100}}></View>}

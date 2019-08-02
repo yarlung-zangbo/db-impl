@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
     public Object favorite(String username, int bookid) {
         User user=userDao.findByUsername(username);
         Soundbook book=soundbookDao.findByBookid(bookid);
-        if(book.getDisabled().compareTo(TimeTool.now())>0){
+        if(book.getDisabled()!=null && book.getDisabled().compareTo(TimeTool.now())>0){
             return PackTool.pack("fail", "book disabled");
         }
         if(book.getReleasetime()==null){

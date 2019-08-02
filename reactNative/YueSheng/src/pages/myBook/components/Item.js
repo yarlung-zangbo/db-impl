@@ -45,6 +45,7 @@ export default class Item extends Component<Props> {
                 'Content-Type': 'application/x-www-form-urlencoded'},
             body: 'username='+this.props.book.creater.username+'&bookid='+this.props.book.bookid
         }).then((res)=>{
+            console.log(res.json());
             this.setState({release:!this.state.release})
         })
     }

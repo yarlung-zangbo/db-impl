@@ -88,7 +88,8 @@ export default class BottomTab extends Component<Props> {
         this.setLoading();
         this.setPlay();
         this.recordListen();
-        const whoosh = new Sound('http://192.168.43.124:8086/yuesheng/getSound?name=风铃', '', (err) => {
+        /* http://192.168.43.124:8086/yuesheng/getSound?name=风铃 */
+        const whoosh = new Sound('http://soundimage.org/wp-content/uploads/2016/06/Cyber-Chime2.mp3', '', (err) => {
             if (err) {
                 return console.log(err);
             }

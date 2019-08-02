@@ -36,7 +36,7 @@ export default class PlayScreen extends Component<Props> {
         this.spinValue = new Animated.Value(0);
         this.state = ({
             favorite: false,
-            audioPath: 'http://192.168.43.124:8086/yuesheng/getSound?name=风铃'/*"http://zjyd.sc.chinaz.net/Files/DownLoad/sound1/201905/11572.wav"*/,
+            audioPath: 'http://soundimage.org/wp-content/uploads/2016/06/Cyber-Chime2.mp3'/*"http://zjyd.sc.chinaz.net/Files/DownLoad/sound1/201905/11572.wav"*/,
             totalTime: 0,
             totalMinute: 0,
             totalSecond: 0,
@@ -282,6 +282,9 @@ export default class PlayScreen extends Component<Props> {
                                 color: "#888",
                                 fontSize: 13
                             }}>{this.bookUndefined() ? " " : this.pickParams().book.creater.name}</Text>
+                            <Text style={{fontSize: 11, color: '#ddd'}}>
+                                {this.bookUndefined() ? " " : this.pickParams().book.releasetime}
+                            </Text>
                         </View>
                     </View>
                     <View style={styles.serviceView}>

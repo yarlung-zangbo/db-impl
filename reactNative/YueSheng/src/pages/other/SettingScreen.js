@@ -7,13 +7,13 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View,Image,ScrollView, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View,TouchableWithoutFeedback,ScrollView, TouchableOpacity} from 'react-native';
 import {
     DrawerActions,
 } from 'react-navigation';
 import UserComponent from './components/UserComponent'
 import Entypo from 'react-native-vector-icons/Entypo';
-import {themeColor, loginServer, user} from "../variable/Common"
+import {themeColor, loginServer, user, width, height} from "../variable/Common"
 
 export default class SettingScreen extends Component<Props> {
 
@@ -51,30 +51,37 @@ export default class SettingScreen extends Component<Props> {
 
     render() {
         return (
-            <View  style={styles.container}>
-                <View style={{flexDirection:'row'}}>
-                    <TouchableOpacity style={{flex:5}} onPress={()=>{
-                        this.props.navigation.navigate(
-                            "UserMessage",
-                            {user: this.state.user})
-                    }}>
-                        <UserComponent user={this.state.user}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={
-                        ()=>{this.props.navigation.dispatch(DrawerActions.closeDrawer())}}
-                                      style={styles.return}>
-                        <Entypo name="chevron-thin-right" size={25} style={styles.returnIcon}/>
-                    </TouchableOpacity>
-                </View>
-                <ScrollView style={{flex:1}}>
+            <TouchableWithoutFeedback onPress={()=>{
+                    this.props.navigation.dispatch(DrawerActions.closeDrawer())}}>
+                <View  style={{width:"100%", height:"100%"}}>
+                    <TouchableWithoutFeedback>
+                        <View  style={styles.container}>
+                            <View style={{flexDirection:'row'}}>
+                                <TouchableOpacity style={{flex:5}} onPress={()=>{
+                                    this.props.navigation.navigate(
+                                        "UserMessage",
+                                        {user: this.state.user})
+                                }}>
+                                    <UserComponent user={this.state.user}/>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={
+                                    ()=>{this.props.navigation.dispatch(DrawerActions.closeDrawer())}}
+                                                  style={styles.return}>
+                                    <Entypo name="chevron-thin-right" size={25} style={styles.returnIcon}/>
+                                </TouchableOpacity>
+                            </View>
+                            <ScrollView style={{flex:1}}>
 
-                </ScrollView>
-                <TouchableOpacity style={styles.exitView} onPress={()=>{
-                    this.logout();
-                }}>
-                    <Text style={{color:'#fff'}}>退出</Text>
-                </TouchableOpacity>
-            </View>
+                            </ScrollView>
+                            <TouchableOpacity style={styles.exitView} onPress={()=>{
+                                this.logout();
+                            }}>
+                                <Text style={{color:'#fff'}}>退出</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
+            </TouchableWithoutFeedback>
         );
     }
 }
@@ -82,6 +89,8 @@ export default class SettingScreen extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width:width*0.80,
+        backgroundColor: '#fff',
     },
     return:{
         backgroundColor: '#f9f9f9',

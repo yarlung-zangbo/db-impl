@@ -39,4 +39,14 @@ public class SoundbookServiceImpl implements SoundbookService {
         return PackTool.pack("ok", book.getCommentList());
     }
 
+    @Override
+    public Object getAll() {
+        return PackTool.pack("ok", soundbookDao.findAll());
+    }
+
+    @Override
+    public Object findReleaseBook(String name) {
+        return PackTool.pack("ok", soundbookDao.findReleasedBookByName(name));
+    }
+
 }

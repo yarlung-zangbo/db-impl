@@ -16,4 +16,16 @@ public class ListenDaoImpl implements ListenDao {
     public Listen save(Listen listen) {
         return listenRepository.saveAndFlush(listen);
     }
+
+    @Override
+    public void delete(int listenid) {
+        listenRepository.delete(listenid);
+    }
+
+    @Override
+    public Listen findByListenid(int listenid) {
+        return listenRepository.findByListenid(listenid);
+    }
+
+
 }

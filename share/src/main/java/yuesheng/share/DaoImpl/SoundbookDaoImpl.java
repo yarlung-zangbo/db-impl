@@ -22,6 +22,11 @@ public class SoundbookDaoImpl implements SoundbookDao {
 
     @Override
     public List<Soundbook> findReleasedBookByName(String name) {
-        return soundbookRepository.findByReleasetimeLessThanAndNameContaining(TimeTool.now(), name);
+        return soundbookRepository.findByReleasetimeIsNotNullAndNameContaining(name);
+    }
+
+    @Override
+    public List<Soundbook> findAll() {
+        return soundbookRepository.findByReleasetimeIsNotNullOrderByReleasetimeDesc();
     }
 }

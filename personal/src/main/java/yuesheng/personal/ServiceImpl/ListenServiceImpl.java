@@ -12,6 +12,8 @@ import yuesheng.personal.Service.ListenService;
 import yuesheng.personal.tool.PackTool;
 import yuesheng.personal.tool.TimeTool;
 
+import javax.transaction.Transactional;
+
 @Service
 public class ListenServiceImpl implements ListenService {
 
@@ -38,5 +40,19 @@ public class ListenServiceImpl implements ListenService {
         listen.setTime(TimeTool.now());
         listenDao.save(listen);
         return PackTool.pack("ok", bookid);
+    }
+
+    @Override
+    @Transactional
+    public Object deleteListen(int listenid, String username) {
+        try{
+            Listen listen=listenDao.findByListenid(listenid);
+            if(!listen.getListener().getUsername().equals(username))
+                return PackTool.pack("fail", "record isnot yours");
+            listenDao.delete(listenid);
+            return PackTool.pack("ok", listenid);
+        }catch (Exception err){
+            return PackTool.pack("fail", "delete fail");
+        }
     }
 }

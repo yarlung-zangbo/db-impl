@@ -157,8 +157,9 @@ const DrawerNavigator=createDrawerNavigator(
     },
     {
         initialRouteName: 'BottomTab',
-        drawerWidth: 285,
+        drawerWidth: width,
         contentComponent:SettingScreen,
+        drawerBackgroundColor: 'rgba(0, 0, 0, 0)'
     },
 )
 

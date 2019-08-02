@@ -65,4 +65,14 @@ public class ShareController {
     public Object getPersonalComment(String username){
         return userService.getComments(username);
     }
+
+    @GetMapping("/getAllBook")
+    public Object getAllBook(){
+        return soundbookService.getAll();
+    }
+
+    @GetMapping("/getBookFromAll")
+    public Object getBookFromAll(String name){
+        return soundbookService.findReleaseBook(name);
+    }
 }
